@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 // views
 import Home from './views/Home';
 import About from './views/About';
-import Buy from './views/Buy';
+import ShoppingCart from './views/ShoppingCart';
 import Login from './views/Login';
 // private routing components
 import PrivateRoutes from './components/PrivateRoutes';
@@ -25,13 +25,16 @@ function App() {
             <li>
               <Link to="/about">About</Link>
             </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
           </ul>
         </nav>
         <Routes>
           <Route path="/" element={<Home />} exact />
           <Route path="/about" element={<About />} />
           <Route element={<PrivateRoutes/>}>
-            <Route path="/buy" element={<Buy/>}/>
+            <Route path="/shoppingcart" element={<ShoppingCart/>}/>
           </Route>
           <Route element={<Login/>} path="/login"/>
         </Routes>

@@ -8,23 +8,23 @@ const PrivateRoutes = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
-
+    // sime authentiacting api request
     const fetchData = async () => {
         const accessToken = Cookies.get('accessToken')
-        // if (accessToken){
-        //     console.log(accessToken);
-        // }
-
+        const uid = Cookies.get('authorizeToken')
         try {
             const options = {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + accessToken
+                    'Authorization': 'Bearer ' + accessToken,
+                    'uid': 'UID ' + uid,
+                    'Role': 'Role: ' + 'ADMIN' // role changing
                     },
-            } 
+            }
 
-            const response = await fetch('http://localhost:8000/', options)
+            // fetch data from a server at given url
+            const response = await fetch('http://localhost:8001/', options)
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);

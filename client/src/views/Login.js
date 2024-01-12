@@ -18,8 +18,10 @@ const loginWithGoogle = () => {
             const user = result.user;
             console.log(user);
             // console.log(user);
-            // cookie z tokenem
+            // cookie z tokenem do autentykacji
             Cookies.set('accessToken', user.accessToken, { secure: true, sameSite: 'strict' });
+            // cookie z uid do autoryzacji
+            Cookies.set('authorizeToken', user.uid, { secure: true, sameSite: 'strict' })
             // IdP data available using getAdditionalUserInfo(result)
             // ...
         }).catch((error) => {

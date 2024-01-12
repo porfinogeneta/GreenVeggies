@@ -1,3 +1,6 @@
+-- mysql --socket /tmp/mysql_3306.sock -uroot
+
+
 CREATE DATABASE green_veggies;
 USE green_veggies;
 
@@ -10,6 +13,18 @@ CREATE TABLE products (
   stock_quantity INT,
   added TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
+
+CREATE TABLE users (
+  UID VARCHAR(40) PRIMARY KEY,
+  role ENUM('USER', 'ADMIN', 'FARMER') DEFAULT 'USER'
+);
+
+
+INSERT INTO users(UID, role) VALUES
+('ZGSygC8FkjWeQGEnj2BosFB4rIO2', 'admin');
+
+
 
 INSERT INTO products (name, description, category, price, stock_quantity)
 VALUES 

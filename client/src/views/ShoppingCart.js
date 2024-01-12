@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 
 
-function Buy() {
+function ShoppingCart() {
 
 
   // useEffect(() => {
@@ -14,4 +14,4 @@ function Buy() {
   </div>;
 }
 
-export default Buy;
+export default ShoppingCart;

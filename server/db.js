@@ -1,24 +1,14 @@
-// CLOUD SQL CONNECTION
-
 import mysql from 'mysql2'
-import {Connector} from '@google-cloud/cloud-sql-connector';
 import dotenv from 'dotenv'
 dotenv.config()
 
-const connector = new Connector();
-const clientOpts = await connector.getOptions({
-  instanceConnectionName: process.env.GOOGLE_INSTANCE_CONNECTION_NAME,
-  ipType: 'PUBLIC',
-});
-
-const pool = await mysql.createPool({
-    ...clientOpts,
-    user: process.env.GOOGLE_USERNAME,
-    password: process.env.GOOGLE_DATABASE_PASSWORD,
-    database: process.env.GOOGLE_DATABASE_NAME,
-  }).promise()
-
-
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+}).promise()
 
 export async function getAllProducts(){
     const [rows] = await pool.query("SELECT * FROM products") || null

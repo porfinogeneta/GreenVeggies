@@ -7,32 +7,76 @@ app.use(express.json())
 app.use(cors())
 
 
-// API HANDLING
-import { getAllProducts, getProduct, addProduct, deleteProduct, updateProduct} from './database.js';
-
-
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
 
-function authorize(req,res,next) {
-  // frontend przekazuje w headers swój klucz JWT
-  const token = req.headers.authorization.split(" ")[1]; // pobieramy tylko token, bez Bearer
-  const decodedValue = admin.auth().verifyIdToken(token)
+import { getUserByUID, addUser } from './authentication.js';
 
-  if (decodedValue){
-    next()
-  }else {
-    res.status(401)
+async function checkStatus(decodedValue, uid, role, res, next) {
+  try {
+    // check if it's a logged-in user
+    if (decodedValue) {
+      // check if role fits
+      const user = await getUserByUID(uid);
+      if (user != undefined){
+        // admin can do everything
+        if (user.role === 'ADMIN') {
+          next();
+        }
+        // farmer can do farmer stuff as well as user stuff, we check database status as well as header provided status
+        else if ((user.role === 'FARMER' && role.toUpperCase() === 'USER') || role.toUpperCase() === 'FARMER') {
+          next();
+        }
+        else if (user.role === 'USER' && role.toUpperCase() === 'USER') {
+          next();
+        }
+        else {
+          res.status(401).send("Unauthorized");
+        }
+      }else {
+        const id = await addUser(uid);
+        // grant access to user pages if the user stuff was requested
+        if (role == 'USER'){
+          console.log('elo');
+          next()
+        }else {
+          res.status(401).send("Unauthorized");
+        }
+      }
+    }
+    else {
+      res.status(401).send("Unauthorized");
+    }
+  } catch (error) {
+    console.error("Error in checkStatus:", error);
+    res.status(500).send("Internal Server Error");
   }
+}
 
-  
+async function authorize(req, res, next) {
+  try {
+    // frontend przekazuje w headers swój klucz JWT
+    const token = req.headers.authorization.split(" ")[1]; // pobieramy tylko token, bez Bearer
+    const uid = req.headers.uid.split(" ")[1];
+    const role = req.headers.role.split(" ")[1];
+    const decodedValue = await admin.auth().verifyIdToken(token);
+
+    // Call the checkStatus function
+    await checkStatus(decodedValue, uid, role, res, next);
+  } catch (error) {
+    console.error("Error in authorize:", error);
+    res.status(401).send("Unauthorized");
+  }
 }
 
 app.get('/', authorize, (req, res) => {
   res.send({message: "udało się"})
 })
+
+// API HANDLING
+import { getAllProducts, getProduct, addProduct, deleteProduct, updateProduct} from './database.js';
 
 app.get("/products", async (req, res) => {
   try {

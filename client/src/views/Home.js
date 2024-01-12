@@ -4,7 +4,7 @@ import ButtonLink from '../components/ButtonLink.js'
 
 function Home() {
 
-    const {data, loading, error} = useGET('http://localhost:8000/products')
+    const {data, loading, error} = useGET('http://localhost:8001/products')
     
     
 
