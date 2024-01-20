@@ -1,4 +1,5 @@
 import mysql from 'mysql2'
+import {Connector} from '@google-cloud/cloud-sql-connector';
 import dotenv from 'dotenv'
 dotenv.config()
 
