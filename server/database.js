@@ -10,7 +10,7 @@ const clientOpts = await connector.getOptions({
   instanceConnectionName: process.env.GOOGLE_INSTANCE_CONNECTION_NAME,
   ipType: 'PUBLIC',
 });
-
+ 
 const pool = await mysql.createPool({
     ...clientOpts,
     user: process.env.GOOGLE_USERNAME,
@@ -38,7 +38,7 @@ export async function addProduct(name, description, category, price, stock_quant
     VALUES (?, ?, ?, ?, ?)
     `, [name, description, category, price, stock_quantity])
     const id = result.insertId;
-    return getProduct(id);
+    return await getProduct(id);
 }
 
 export async function deleteProduct(id){

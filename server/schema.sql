@@ -22,9 +22,9 @@ CREATE TABLE users (
 
 
 INSERT INTO users(UID, role) VALUES
-('ZGSygC8FkjWeQGEnj2BosFB4rIO2', 'admin');
+('70powABQsAOf57JTUcObV8xRyg82', 'admin');
 
-
+('ZGSygC8FkjWeQGEnj2BosFB4rIO2', 'admin'),
 
 INSERT INTO products (name, description, category, price, stock_quantity)
 VALUES 

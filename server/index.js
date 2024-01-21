@@ -13,13 +13,19 @@ app.use((err, req, res, next) => {
 });
 
 import { getUserByUID, addUser } from './authentication.js';
-
-async function checkStatus(decodedValue, uid, role, res, next) {
+ 
+// authorize function checks if given user has a proper role
+// authentication + authorization
+async function authorize(uid, role,decodedValue, res, next) {
   try {
+    // const uid = req.headers.uid.split(" ")[1];
+    // const role = req.headers.role.split(" ")[1];
+    // const decodedValue = await admin.auth().verifyIdToken(token);
     // check if it's a logged-in user
     if (decodedValue) {
       // check if role fits
       const user = await getUserByUID(uid);
+      // console.log(user.role);
       if (user != undefined){
         // admin can do everything
         if (user.role === 'ADMIN') {
@@ -55,30 +61,31 @@ async function checkStatus(decodedValue, uid, role, res, next) {
   }
 }
 
-async function authorize(req, res, next) {
+// authenticate function checks if it's a logged in user
+// bare authentication
+async function authenticate(req, res, next) {
   try {
     // frontend przekazuje w headers swój klucz JWT
     const token = req.headers.authorization.split(" ")[1]; // pobieramy tylko token, bez Bearer
-    const uid = req.headers.uid.split(" ")[1];
     const role = req.headers.role.split(" ")[1];
+    const uid = req.headers.uid.split(" ")[1];
     const decodedValue = await admin.auth().verifyIdToken(token);
-
-    // Call the checkStatus function
-    await checkStatus(decodedValue, uid, role, res, next);
+    await authorize(uid, role,decodedValue, res, next)
   } catch (error) {
     console.error("Error in authorize:", error);
     res.status(401).send("Unauthorized");
   }
 }
 
-app.get('/', authorize, (req, res) => {
-  res.send({message: "udało się"})
+// every time in private route we authenticate through this request
+app.get('/authenticate', authenticate, (req, res) => {
+  res.send({message: "user authenticated"})
 })
 
 // API HANDLING
 import { getAllProducts, getProduct, addProduct, deleteProduct, updateProduct} from './database.js';
 
-app.get("/products", async (req, res) => {
+app.get("/products", async (req, res, next) => {
   try {
     const products = await getAllProducts();
     res.send(products);
@@ -101,7 +108,7 @@ app.get("/products/:id", async (req, res) => {
   }
 });
 
-app.post("/products", async (req, res) => {
+app.post("/products", authenticate, async (req, res, next) => {
   try {
     const { name, description, category, price, stock_quantity } = req.body;
     const product = await addProduct(name, description, category, price, stock_quantity);
@@ -111,7 +118,7 @@ app.post("/products", async (req, res) => {
   }
 });
 
-app.delete("/products/:id", async (req, res) => {
+app.delete("/products/:id", authenticate, async (req, res, next) => {
   try {
     const id = req.params.id;
     const product = await deleteProduct(id);
@@ -125,7 +132,7 @@ app.delete("/products/:id", async (req, res) => {
   }
 });
 
-app.put("/products/:id", async (req, res) => {
+app.put("/products/:id", authenticate, async (req, res, next) => {
   try {
     const { col_name, col_val } = req.body;
     const id = req.params.id;
