@@ -1,5 +1,6 @@
 import mysql from 'mysql2'
 import dotenv from 'dotenv'
+import {Connector} from '@google-cloud/cloud-sql-connector';
 dotenv.config()
 
 // const pool = mysql.createPool({

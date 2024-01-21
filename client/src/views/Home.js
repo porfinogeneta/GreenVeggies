@@ -1,32 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import useGET from '../hooks/useGET.js'
-import ButtonLink from '../components/ButtonLink.js'
+import { Container, Row, Col, ListGroup, Spinner, Alert, Card } from 'react-bootstrap';
+import useGET from '../hooks/useGET.js';
+import ButtonLink from '../components/ButtonLink.js';
+import '../views/styles/home_styles.css';
 
 function Home() {
+  const { data, loading, error } = useGET('http://localhost:8001/products');
 
-    const {data, loading, error} = useGET('http://localhost:8001/products')
-    
-    
-
-    return (
-        <div>
-        {loading ? (
-            <p>Loading...</p>
-        ) : error ? (
-            <p>Error: {error.message}</p>
-        ) : (
-            <ul>
-            {data.map(item => (
-                <span key={item.id}>
-                    <li > {item.name}{item.description}</li>
-                    <ButtonLink to="/buy">Go to Some Page!</ButtonLink>
-                </span>
-                
-            ))}
-            </ul>
-        )}
-        </div>
-    );
-    };
+  return (
+    <Container className="mt-5">
+      <h1 className="text-center mb-4">Product List</h1>
+      <Row className="justify-content-center">
+        <Col xs={12} md={8}>
+          {loading ? (
+            <div className="spinner-container">
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </div>
+          ) : error ? (
+            <Alert variant="danger" className="text-center">
+              Error: {error.message}
+            </Alert>
+          ) : (
+            <Row className="product-grid">
+              {data.map((item) => (
+                <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
+                  <Card className="mb-3 card">
+                    <Card.Body>
+                      <Card.Title>{item.name}</Card.Title>
+                      <Card.Text>{item.description}</Card.Text>
+                      <ButtonLink to="/buy" className="button-link">
+                        Add to cart
+                      </ButtonLink>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Col>
+      </Row>
+    </Container>
+  );
+}
 
 export default Home;

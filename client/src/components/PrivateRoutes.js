@@ -19,7 +19,7 @@ const PrivateRoutes = () => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
                     'uid': 'UID ' + uid,
-                    'Role': 'Role: ' + 'ADMIN' // role changing
+                    'Role': 'Role: ' + 'USER' // role changing
                     },
             }
 
