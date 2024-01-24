@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, ListGroup, Spinner, Alert, Card } from 'react-bootstrap';
+// Home.js
+import React from 'react';
+import { Container, Row, Col, Spinner, Alert, Card } from 'react-bootstrap';
 import useGET from '../hooks/useGET.js';
 import ButtonLink from '../components/ButtonLink.js';
 import '../views/styles/home_styles.css';
 
 function Home() {
-  const { data, loading, error } = useGET('http://localhost:8001/products');
+  const { data, loading, error } = useGET(); // Updated usage, removed unnecessary parameters
 
   return (
     <Container className="mt-5">
@@ -30,7 +31,9 @@ function Home() {
                     <Card.Body>
                       <Card.Title>{item.name}</Card.Title>
                       <Card.Text>{item.description}</Card.Text>
-                      <ButtonLink to="/buy" className="button-link">
+                      <Card.Text>Stock quantity: {item.stock_quantity}</Card.Text>
+                      <Card.Text>Price: ${item.price * 1}</Card.Text>
+                      <ButtonLink to="/shoppingcart" className="button-link" product={item}>
                         Add to cart
                       </ButtonLink>
                     </Card.Body>

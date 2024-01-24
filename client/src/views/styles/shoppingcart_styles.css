@@ -28,7 +28,56 @@ body{
   }
 }
 
-/* The "Add to cart" button */
+/* Hide the increase/decrease arrows in the input field */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+/* 
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox / 
+}
+*/
+
+.card input[type="number"] {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  margin-top: 7px;
+  margin-bottom: 7px;
+  text-align: center;
+  align-self: center;
+
+}
+
+.card input[type="number"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+}
+
+.card button {
+  background-color: #35b378; 
+  color: #113c2c;
+  font-weight: 666;
+  text-align: center;
+  text-decoration: none;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border-width: 1.3px;
+  display: block;
+  margin-top: 10px;
+  align-self: center; 
+  transition: background-color 0.3s ease-in-out;
+
+  &:hover {
+    background-color: #2e9665;
+  }
+}
+
+/* The "Return to cart" button */
 .card .button-link {
   background-color: #35b378; 
   color: #113c2c;
@@ -107,7 +156,7 @@ body{
   word-wrap: break-word;
 }
 
-/* The main "Product" header */
+/* The main "Shopping Cart" header */
 h1 {
   font-size: 2.2em;
   color: #113c2c;
@@ -125,4 +174,27 @@ h1::after {
   margin-top: 1%;
   left: 50%;
   transform: translateX(-50%); 
+}
+
+.order-button {
+  background-color: #35b378; 
+  color: #113c2c;
+  font-size: 1.5em;
+  font-weight: 666;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 70px;
+  border-radius: 10px;
+  border-width: 1.3px;
+  display: block;
+  position: absolute;
+  transform: translate(220%, -40%);
+  transition: background-color 0.3s ease-in-out;
+  
+margin-left:auto;
+margin-right:auto;
+
+  &:hover {
+    background-color: #2e9665;
+  }
 }

@@ -1,6 +1,6 @@
 import {useState, useEffect } from 'react'
 
-const useGET = (url, method = 'GET', body = null, fetching = true) => {
+const useGET = (method = 'GET', body = null, fetching = true) => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -19,7 +19,7 @@ const useGET = (url, method = 'GET', body = null, fetching = true) => {
                     options.body = JSON.stringify(body)
                 }
 
-                const response = await fetch(url, options)
+                const response = await fetch(`http://localhost:8001/products`, options)
 
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
