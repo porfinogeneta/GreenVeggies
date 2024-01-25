@@ -11,11 +11,13 @@ import Login from './views/Login';
 import Admin from './views/Admin';
 import Farmer from './views/Farmer';
 // private routing components
+// import PrivateRoutes from './components/PrivateRoutes';
 import PrivateRoutes from './components/PrivateRoutes';
 
 // firebase
 import './config/firebase-config'
 import './App.css'
+
 
 function App() {
   return (
