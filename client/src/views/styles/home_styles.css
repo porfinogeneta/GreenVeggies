@@ -29,7 +29,7 @@ body{
 }
 
 /* The "Add to cart" button */
-.card .button-link {
+.card .button-link-home {
   background-color: #35b378; 
   color: #113c2c;
   font-weight: 666;
@@ -40,7 +40,7 @@ body{
   border-width: 1.3px;
   display: block;
   margin-top: 5%;
-  margin-bottom: -10%;
+  margin-bottom: 5%;
   align-self: center; 
   transition: background-color 0.3s ease-in-out;
 
@@ -105,6 +105,10 @@ body{
   text-align: center;
   font-weight: 500;
   word-wrap: break-word;
+}
+
+.card-body .product-describtion {
+  font-style: italic;
 }
 
 /* The main "Product" header */

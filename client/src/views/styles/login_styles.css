@@ -1,0 +1,32 @@
+Background styling
+body {
+    background: rgb(78, 100, 80);
+    background: radial-gradient(circle, rgb(176, 208, 178) 0%, rgba(194, 242, 186, 1) 100%);
+  }
+
+h3 {
+  text-align: center;
+  margin-top: 40px;
+}
+
+h4 {
+  text-align: center;
+  font-weight: 555;
+  margin-top: 0px;
+}
+
+
+button {
+  font-size: 20px;
+  font-weight: 550;
+  text-align: center;
+  width: 20%;
+  display: block;
+  transform: translateX(-50%, -50%);
+  margin: 0 auto;
+  padding: 5px 0;
+  cursor: pointer;
+  border-radius: 30px;
+  background-color: rgb(99, 195, 195);
+  color: rgb(25, 24, 23);
+}

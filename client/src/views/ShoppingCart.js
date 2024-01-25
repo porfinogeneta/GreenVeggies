@@ -59,10 +59,9 @@ const ShoppingCart = () => {
             <Card className={`mb-3 card ${index % 2 === 0 ? 'even' : 'odd'}`}>
               <Card.Body>
                 <Card.Title className="card-title">{item.name}</Card.Title>
-                <Card.Text>{item.description}</Card.Text>
-                <Card.Text>Available: {item.stock_quantity}</Card.Text>
-                <Card.Text>Ordered: {item.quantity}</Card.Text>
-                <Card.Text>Total Price: ${item.price * item.quantity}</Card.Text>
+                <Card.Text>𝗔𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲: {item.stock_quantity}</Card.Text>
+                <Card.Text>𝗢𝗿𝗱𝗲𝗿𝗲𝗱: {item.quantity}</Card.Text>
+                <Card.Text>𝗧𝗼𝘁𝗮𝗹 𝗣𝗿𝗶𝗰𝗲: ${item.price * item.quantity}</Card.Text>
                 {editedItemId === item.id ? (
                   <>
                     <input
@@ -70,10 +69,10 @@ const ShoppingCart = () => {
                       value={editedQuantity}
                       onChange={(e) => setEditedQuantity(parseInt(e.target.value, 10))}
                     />
-                    <button onClick={() => handleSaveQuantity(item.id)}>Save</button>
+                    <button className="button-link" onClick={() => handleSaveQuantity(item.id)}>Save</button>
                   </>
                 ) : (
-                  <button onClick={() => handleEditQuantity(item.id, item.quantity)}>Edit order</button>
+                  <button className="button-link" onClick={() => handleEditQuantity(item.id, item.quantity)}>Edit order</button>
                 )}
                 <button className="button-link" onClick={() => handleRemoveItem(item.id)}>
                   Remove from cart

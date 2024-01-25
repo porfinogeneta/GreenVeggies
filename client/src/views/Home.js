@@ -30,12 +30,12 @@ function Home() {
                   <Card className="mb-3 card">
                     <Card.Body>
                       <Card.Title>{item.name}</Card.Title>
-                      <Card.Text>{item.description}</Card.Text>
-                      <Card.Text>Stock quantity: {item.stock_quantity}</Card.Text>
-                      <Card.Text>Price: ${item.price * 1}</Card.Text>
-                      <ButtonLink to="/shoppingcart" className="button-link" product={item}>
+                      <Card.Text>𝗦𝘁𝗼𝗰𝗸 𝗾𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}</Card.Text>
+                      <Card.Text>𝗣𝗿𝗶𝗰𝗲: ${item.price * 1}</Card.Text>
+                      <ButtonLink to="/shoppingcart" className="button-link-home" product={item}>
                         Add to cart
                       </ButtonLink>
+                      <Card.Text className="product-describtion">{item.description}</Card.Text>
                     </Card.Body>
                   </Card>
                 </Col>

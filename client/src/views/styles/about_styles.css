@@ -32,3 +32,13 @@ h1::after {
     transform: translateX(-50%); 
 }
   
+h2 {
+  margin: 30px 350px -10px;
+  text-align: center;
+  color: #113c2c
+}
+
+p {
+  margin: 30px 350px -10px;
+  text-align: center;
+}

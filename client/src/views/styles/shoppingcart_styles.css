@@ -58,26 +58,7 @@ input[type=number] {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
 
-.card button {
-  background-color: #35b378; 
-  color: #113c2c;
-  font-weight: 666;
-  text-align: center;
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  border-width: 1.3px;
-  display: block;
-  margin-top: 10px;
-  align-self: center; 
-  transition: background-color 0.3s ease-in-out;
-
-  &:hover {
-    background-color: #2e9665;
-  }
-}
-
-/* The "Return to cart" button */
+/* The "Remove from cart" and "Edit order" button */
 .card .button-link {
   background-color: #35b378; 
   color: #113c2c;
@@ -87,9 +68,11 @@ input[type=number] {
   padding: 8px 10px;
   border-radius: 10px;
   border-width: 1.3px;
+  width: 70%;
+  font-size: 16px;
   display: block;
   margin-top: 5%;
-  margin-bottom: -10%;
+  margin-bottom: -5px;
   align-self: center; 
   transition: background-color 0.3s ease-in-out;
 
@@ -187,12 +170,9 @@ h1::after {
   border-radius: 10px;
   border-width: 1.3px;
   display: block;
-  position: absolute;
-  transform: translate(220%, -40%);
+  margin: -30px auto 0 auto;
+  transform: translateX(-50%, -50%);
   transition: background-color 0.3s ease-in-out;
-  
-margin-left:auto;
-margin-right:auto;
 
   &:hover {
     background-color: #2e9665;

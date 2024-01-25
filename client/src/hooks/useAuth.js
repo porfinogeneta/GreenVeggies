@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 // from what route we came
 const useAuth = (routeType) => {
   const [auth, setAuth] = useState([]);
+  const [role, setRole] = useState(null); // New state for role
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
@@ -29,6 +30,7 @@ const useAuth = (routeType) => {
       }
 
       setAuth(true);
+      setRole(routeType); // Set the role
     } catch (error) {
       setError(error.name);
     } finally {
@@ -40,7 +42,7 @@ const useAuth = (routeType) => {
     fetchData();
   }, []); // Run once when the component mounts
 
-  return { auth, loading, error };
+  return { auth, role, loading, error };
 };
 
 export default useAuth;
