@@ -34,14 +34,20 @@ function App() {
             <Nav.Link as={Link} to="/login" className="nav-link">
               Login
             </Nav.Link>
+            <Nav.Link as={Link} to="/profile" className="nav-link">
+              Profile
+            </Nav.Link>
+            <Nav.Link as={Link} to="/shoppingcart" className="nav-link">
+              Cart
+            </Nav.Link>
           </Nav>
         </Navbar>
 
         <Routes>
-          <Route path="/" element={<Home />} exact />
-          <Route path="/about" element={<About />} />
-          {/* protected routes */}
-          <Route element={<PrivateRoutes role='user'/>}>
+        <Route path="/" element={<Home />} exact />
+        <Route path="/about" element={<About />} />
+        {/* protected routes */}
+        <Route element={<PrivateRoutes role='user'/>}>
             <Route path="/shoppingcart" element={<ShoppingCart />} />
           </Route>
 

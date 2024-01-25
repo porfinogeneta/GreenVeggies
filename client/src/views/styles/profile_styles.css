@@ -1,0 +1,34 @@
+body{
+  background: rgb(171,217,175);
+  background: radial-gradient(circle, rgb(176, 208, 178) 0%, rgba(194,242,186,1) 100%);
+}
+
+/* The loading spinner */
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* The main "Product" header */
+p {
+    margin: 0;
+    font-size: 2.2em;
+    color: #113c2c;
+    text-align: center;
+    position: relative;
+  }
+  
+p::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 80%;
+    background-color: #225945;
+    position: absolute;
+    margin-top: 1%;
+    left: 50%;
+    transform: translateX(-50%); 
+}
+  

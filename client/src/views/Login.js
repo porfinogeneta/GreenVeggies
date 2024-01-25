@@ -39,7 +39,6 @@ const loginWithGoogle = () => {
 
 function Login() {
   return <div>
-
     <button onClick={loginWithGoogle}>Login</button>
   </div>;
 }

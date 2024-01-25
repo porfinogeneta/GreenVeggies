@@ -23,6 +23,8 @@ CREATE TABLE users (
 
 INSERT INTO users(UID, role) VALUES
 ('70powABQsAOf57JTUcObV8xRyg82', 'admin');
+('ZGSygC8FkjWeQGEnj2BosFB4rIO2', 'admin'),
+
 
 ('ZGSygC8FkjWeQGEnj2BosFB4rIO2', 'admin'),
 
