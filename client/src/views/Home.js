@@ -8,6 +8,7 @@ import '../views/styles/home_styles.css';
 function Home() {
   const { data, loading, error } = useGET(); // Updated usage, removed unnecessary parameters
 
+
   return (
     <Container className="mt-5">
       <h1 className="text-center mb-4">Product List</h1>
@@ -47,5 +48,4 @@ function Home() {
     </Container>
   );
 }
-
 export default Home;

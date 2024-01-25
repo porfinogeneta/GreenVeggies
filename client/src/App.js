@@ -11,12 +11,14 @@ import Admin from './views/Admin';
 import Farmer from './views/Farmer';
 import Profile from './views/Profile';
 // private routing components
+// import PrivateRoutes from './components/PrivateRoutes';
 import PrivateRoutes from './components/PrivateRoutes';
 import useAuth from './hooks/useAuth';
 
 // firebase
 import './config/firebase-config'
 import './App.css'
+
 
 function App() {
   const { auth, role, loading, error } = useAuth('user');
