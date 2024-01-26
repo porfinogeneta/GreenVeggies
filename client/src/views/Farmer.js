@@ -57,7 +57,8 @@ function Farmer() {
     
       return (
         <div>
-          <h2>PRODUCTS FROM VENDOR</h2>
+          <h1>Farmer panel</h1>
+          <h2>Products from vendor</h2>
           {productsLoad ? (
             <p>Loading...</p>
           ) : productsError ? (
@@ -72,7 +73,7 @@ function Farmer() {
                     𝗗𝗲𝘀𝗰𝗿𝗶𝗯𝘁𝗶𝗼𝗻: {item.description}<br></br>
                     𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br>
                     𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
-                    𝗣𝗿𝗶𝗰𝗲: {item.price * 1}$
+                    𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$
                   </li>
                 </span>
               ))}

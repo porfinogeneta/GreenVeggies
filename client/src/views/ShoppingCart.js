@@ -53,7 +53,7 @@ const ShoppingCart = () => {
   return (
     <Container className="mt-5">
       <h1 className="text-center mb-4">Shopping Cart</h1>
-      <Row className="product-grid">
+      <Row className="product-grid-cart">
         {cartItems.map((item, index) => (
           <Col key={index} xs={12} sm={6} md={4} lg={3}>
             <Card className={`mb-3 card ${index % 2 === 0 ? 'even' : 'odd'}`}>
@@ -61,7 +61,7 @@ const ShoppingCart = () => {
                 <Card.Title className="card-title">{item.name}</Card.Title>
                 <Card.Text>𝗔𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲: {item.stock_quantity}</Card.Text>
                 <Card.Text>𝗢𝗿𝗱𝗲𝗿𝗲𝗱: {item.quantity}</Card.Text>
-                <Card.Text>𝗧𝗼𝘁𝗮𝗹 𝗣𝗿𝗶𝗰𝗲: ${item.price * item.quantity}</Card.Text>
+                <Card.Text>𝗧𝗼𝘁𝗮𝗹 𝗣𝗿𝗶𝗰𝗲: ${(item.price * item.quantity).toFixed(2)}</Card.Text>
                 {editedItemId === item.id ? (
                   <>
                     <input

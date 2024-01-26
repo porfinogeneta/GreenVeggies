@@ -85,7 +85,7 @@ function Admin() {
           {products.map((item) => (
             <span key={item.id}>
               <li className="admin-info">
-                𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {item.price}<br></br>
+                𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$<br></br>
                 𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br> 𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
                 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {item.description}
               </li>
