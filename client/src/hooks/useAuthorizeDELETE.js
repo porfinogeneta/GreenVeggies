@@ -8,7 +8,7 @@ const useAuthorizeDELETE = () => {
     // const [error, setError] = useState(null)
 
     
-    const deleteData = async (id) => {
+    const deleteData = async (type, id) => {
         const accessToken = Cookies.get('accessToken');
         const uid = Cookies.get('authorizeToken');
 
@@ -23,7 +23,7 @@ const useAuthorizeDELETE = () => {
                     },
             }
 
-        await fetch(`http://localhost:8001/products/${id}`, options)
+        await fetch(`http://localhost:8001/${type}/${id}`, options)
         
         }catch (error) {
             throw error

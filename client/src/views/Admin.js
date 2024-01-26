@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import useGET from '../hooks/useGET.js';
 import useAuthorizeDELETE from '../hooks/useAuthorizeDELETE.js';
 import useAuthorizeUPDATE from '../hooks/useAuthorizeUPDATE.js';
+
+import useAuthorizePULL from '../hooks/useAuthorizePULL.js';
+import useAuthorizeGET from '../hooks/useAuthorizeGET.js';
+import useAuthorizePOST from '../hooks/useAuthorizePOST.js';
 import '../views/styles/admin_styles.css';
 
 function Admin() {
@@ -18,11 +22,53 @@ function Admin() {
     stock_quantity: '',
   });
 
-  useEffect(() => {
-    setProducts(initialData);
-  }, [initialData]);
+
+    // messages products to accept/reject
+    const [notifications, setNotifications] = useState(null);
+    const {data: noti, loading: notiLoad, error: notiErr, fetchData} = useAuthorizeGET()
+    const {newData, newProducts, loading: nl, error: er, addData} = useAuthorizePOST()
+
+
+    // look for subscribed notifications on mounted
+    useAuthorizePULL()
+
+
+
+    useEffect(() => {
+        setProducts(initialData)
+    }, [initialData])
+    
+    const handleDelete = async (id) => {
+        try {
+            // hook method
+            await deleteData('products', id);
+            // update local state
+            setProducts((prevProducts) => prevProducts.filter(item => item.id !== id));
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+    };
+
+    const handleUpdate = async (id) => {
+        try {
+            const body = {col_name: 'category', col_val: 'koń'}
+            await updateData(id, body)
+            // update local state
+            setProducts((prevProducts) => 
+                prevProducts.map(item => 
+                    item.id === id ? { ...item, [body.col_name]: body.col_val } : item)
+                );
+        }catch(error) {
+            console.error("Error updating item:", error);
+        }
+    }
+  
+    useEffect(() => {
+        setProducts(initialData);
+    }, [initialData]);
 
   useEffect(() => {
+
     // Update form with current values when entering edit mode
     if (editMode !== null) {
       const currentItem = products.find((item) => item.id === editMode);
@@ -39,27 +85,64 @@ function Admin() {
     }
   }, [editMode, products]);
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteData(id);
-      setProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
-    } catch (error) {
-      console.error("Error deleting item:", error);
+    const handleReject = async (id) => {
+        try {
+            // hook method
+            await deleteData('notifications', id);
+            // update local state
+            setNotifications((prevNotifications) => prevNotifications.filter(item => item.id !== id));
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+        
     }
-  };
 
-  const handleUpdate = async (id, e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-    try {
-      await updateData(id, updateForm);
-      setProducts((prevProducts) =>
-        prevProducts.map((item) => (item.id === id ? { ...item, ...updateForm } : item))
-      );
-      setEditMode(null);
-    } catch (error) {
-      console.error("Error updating item:", error);
+    const handleAccept = async (id) => {
+        try {
+            const new_product = notifications.find(pr => pr.id == id)
+            // hook method
+            await addData(new_product);
+            // update local state
+            setNotifications((prevNotifications) => prevNotifications.filter(item => item.id !== id));
+            setProducts((prevProducts) => [...prevProducts, new_product])
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
     }
-  };
+
+
+
+    const handleLoad = async () => {
+        try {
+            const res = await fetchData()
+            setNotifications(res)
+
+        }catch(error) {
+            console.log(error);
+        }
+    }
+
+//   const handleDelete = async (id) => {
+//     try {
+//       await deleteData(id);
+//       setProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
+//     } catch (error) {
+//       console.error("Error deleting item:", error);
+//     }
+//   };
+
+//   const handleUpdate = async (id, e) => {
+//     e.preventDefault(); // Prevent the default form submission behavior
+//     try {
+//       await updateData(id, updateForm);
+//       setProducts((prevProducts) =>
+//         prevProducts.map((item) => (item.id === id ? { ...item, ...updateForm } : item))
+//       );
+//       setEditMode(null);
+//     } catch (error) {
+//       console.error("Error updating item:", error);
+//     }
+//   };
 
   const toggleEditMode = (id) => {
     setEditMode((prevEditMode) => (prevEditMode === id ? null : id));
@@ -75,6 +158,9 @@ function Admin() {
 
   return (
     <div>
+        <div>
+
+        
       <h1>Admin panel</h1>
       {loading ? (
         <p>Loading...</p>
@@ -139,6 +225,29 @@ function Admin() {
           ))}
         </ul>
       )}
+        <div>
+            <h2>Notifications</h2>
+            <button onClick={handleLoad}>Refresh notifications</button>
+            {notiLoad ? (
+                <p>Loading notifications...</p>
+            ) : notiErr ? (
+                <p>Error: {notiErr.message}</p>
+            ) : (
+                notifications && (
+                    <ul>
+                        {notifications.map((notification) => (
+                            <div>
+                                <li key={notification.id}>{notification.name}</li>
+                                <button onClick={() => handleAccept(notification.id)}>Accept</button>
+                                <button onClick={() => handleReject(notification.id)}>Reject</button>
+                            </div>
+                            
+                        ))}
+                    </ul>
+                )
+            )}   
+        </div>
+    </div>
     </div>
   );
 }

@@ -63,6 +63,26 @@ export async function updateProduct(col_name, new_val, id){
     return result
 }
 
+export async function addNotification(product){
+    const [result] = await pool.query(`
+    INSERT INTO notifications (name, description, category, price, stock_quantity)
+    VALUES (?, ?, ?, ?, ?)
+    `, [product.name, product.description, product.category, product.price, product.stock_quantity])
+    return await result.insertId;
+}
+
+export async function getNotifications(){
+    const [rows] = await pool.query("SELECT * FROM notifications") || null
+    return rows
+}
+
+export async function deleteNotification(id){
+    const [result] = await pool.query(
+        `DELETE FROM notifications WHERE id = ?`
+    , [id]);
+    return result
+}
+
 // const products = await getAllProducts()
 // console.log(products);
 // const product = await getProduct(1)

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
-import useAuthorizePOST from '../hooks/useAuthorizePOST';
+// import useAuthorizePOST from '../hooks/useAuthorizePOST';
+import useModerationPOST from '../hooks/useModerationPOST';
 import useGET from '../hooks/useGET';
 import '../views/styles/farmer_styles.css';
 
@@ -9,7 +10,7 @@ function Farmer() {
 
     const {data: products, loading: productsLoad, error: productsError} = useGET()
   
-    const {newData, loading, error, addData} = useAuthorizePOST();
+    const {loading, error, postMessage} = useModerationPOST();
 
     const [productsList, setProductsList] = useState(null)
 
@@ -37,9 +38,9 @@ function Farmer() {
         e.preventDefault();
         try {
             // wait till product is added
-            await addData(product)
+            await postMessage(product)
             // update local state
-            setProductsList((prevProducts) => [...prevProducts, product]);
+            // setProductsList((prevProducts) => [...prevProducts, product]);
             // console.log('Product submitted:', product);
             // Reset the form after submission
             setProduct({

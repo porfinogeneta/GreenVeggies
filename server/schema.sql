@@ -4,6 +4,7 @@
 CREATE DATABASE green_veggies;
 USE green_veggies;
 
+-- pusty string !!
 CREATE TABLE products (
   id integer PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
@@ -18,6 +19,17 @@ CREATE TABLE products (
 CREATE TABLE users (
   UID VARCHAR(40) PRIMARY KEY,
   role ENUM('USER', 'ADMIN', 'FARMER') DEFAULT 'USER'
+);
+
+CREATE TABLE notifications (
+  id integer PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255) NOT NULL,
+  description TEXT,
+  category VARCHAR(50),
+  price DECIMAL(10,2),
+  stock_quantity INT,
+  link VARCHAR(255),
+  added TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 

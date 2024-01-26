@@ -6,9 +6,11 @@ import '../views/styles/home_styles.css';
 
 function Home() {
   const { data, loading, error } = useGET();
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all'); // Initially set to 'all'
   const [filteredData, setFilteredData] = useState(data);
+
 
   useEffect(() => {
     // Set filteredData to the full data when the component mounts or when the data changes
