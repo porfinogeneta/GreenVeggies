@@ -21,6 +21,7 @@ function Admin() {
     price: '',
     stock_quantity: '',
   });
+  const [searchQuery, setSearchQuery] = useState('');
 
 
     // messages products to accept/reject
@@ -156,19 +157,34 @@ function Admin() {
     }));
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const filteredProducts = products
+    ? products.filter((item) => (item.name.toLowerCase().includes(searchQuery) || 
+                                item.price.includes(searchQuery)))
+    : [];
+
   return (
     <div>
         <div>
 
         
       <h1>Admin panel</h1>
+      <input className="admin-input"
+        type="text"
+        placeholder="Search by name/price..."
+        value={searchQuery}
+        onChange={handleSearchChange}
+      />
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
         <p>Error: {error.message}</p>
       ) : (
         <ul className="admin-list">
-          {products.map((item) => (
+          {filteredProducts.map((item) => (
             <span key={item.id}>
               <li className="admin-info">
                 𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$<br></br>
