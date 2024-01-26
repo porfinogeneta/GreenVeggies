@@ -5,7 +5,7 @@ import ButtonLink from '../components/ButtonLink.js';
 import '../views/styles/home_styles.css';
 
 function Home() {
-  const { data, loading, error } = useGET('http://localhost:8001/products');
+  const { data, loading, error } = useGET();
 
 
   return (

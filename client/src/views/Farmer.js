@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import useAuthorizePOST from '../hooks/useAuthorizePOST';
+// import useAuthorizePOST from '../hooks/useAuthorizePOST';
+import useModerationPOST from '../hooks/useModerationPOST';
 import useGET from '../hooks/useGET';
 
 function Farmer() {
 
     const {data: products, loading: productsLoad, error: productsError} = useGET()
   
-    const {newData, loading, error, addData} = useAuthorizePOST();
+    const {loading, error, postMessage} = useModerationPOST();
 
     const [productsList, setProductsList] = useState(null)
 
@@ -35,7 +36,7 @@ function Farmer() {
         e.preventDefault();
         try {
             // wait till product is added
-            await addData(product)
+            await postMessage(product)
             // update local state
             setProductsList((prevProducts) => [...prevProducts, product]);
             // console.log('Product submitted:', product);
