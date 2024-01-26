@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 // import useAuthorizePOST from '../hooks/useAuthorizePOST';
 import useModerationPOST from '../hooks/useModerationPOST';
 import useGET from '../hooks/useGET';
+import '../views/styles/farmer_styles.css';
 
 function Farmer() {
 
@@ -38,7 +40,7 @@ function Farmer() {
             // wait till product is added
             await postMessage(product)
             // update local state
-            setProductsList((prevProducts) => [...prevProducts, product]);
+            // setProductsList((prevProducts) => [...prevProducts, product]);
             // console.log('Product submitted:', product);
             // Reset the form after submission
             setProduct({
@@ -56,64 +58,67 @@ function Farmer() {
     
       return (
         <div>
-            <div>PRODUCTS FROM VENDOR</div>
-            {productsLoad ? (
+          <h1>Farmer panel</h1>
+          <h2>Products from vendor</h2>
+          {productsLoad ? (
             <p>Loading...</p>
-            ) : productsError ? (
-                <p>Error: {error.message}</p>
-            ) : (
-                <ul>
-                {productsList.map(item => (
-                    <span key={item.id}>
-                        <li > {item.name}{item.description}</li>
-                    </span>
-                    
-                ))}
-                </ul>
-            )}
-        {loading ? (
-            <p>Loading...</p>
-        ) : error ? (
+          ) : productsError ? (
             <p>Error: {error.message}</p>
-        ) : (
-            <form onSubmit={handleSubmit}>
-          <label>
-            Name:
-            <input type="text" name="name" value={product.name} onChange={handleChange} />
-          </label>
-          <br />
+          ) : (
+            <ul className="product-list">
+              {productsList.map((item) => (
+                <span key={item.id}>
+                  <li className="sub-list">
+                    {' '}
+                    𝗡𝗮𝗺𝗲: {item.name}<br></br>
+                    𝗗𝗲𝘀𝗰𝗿𝗶𝗯𝘁𝗶𝗼𝗻: {item.description}<br></br>
+                    𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br>
+                    𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
+                    𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$
+                  </li>
+                </span>
+              ))}
+            </ul>
+          )}
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>Error: {error.message}</p>
+          ) : (
+            <Form onSubmit={handleSubmit}>
+              <h2>Add a new product by filling the form below</h2>
+              <Form.Group controlId="formName">
+                <Form.Label>Name:</Form.Label>
+                <Form.Control type="text" name="name" value={product.name} onChange={handleChange} />
+              </Form.Group>
     
-          <label>
-            Description:
-            <textarea name="description" value={product.description} onChange={handleChange} />
-          </label>
-          <br />
+              <Form.Group controlId="formDescription">
+                <Form.Label>Description:</Form.Label>
+                <Form.Control as="textarea" name="description" value={product.description} onChange={handleChange} />
+              </Form.Group>
     
-          <label>
-            Category:
-            <input type="text" name="category" value={product.category} onChange={handleChange} />
-          </label>
-          <br />
+              <Form.Group controlId="formCategory">
+                <Form.Label>Category:</Form.Label>
+                <Form.Control type="text" name="category" value={product.category} onChange={handleChange} />
+              </Form.Group>
     
-          <label>
-            Price:
-            <input type="number" name="price" value={product.price} onChange={handleChange} />
-          </label>
-          <br />
+              <Form.Group controlId="formPrice">
+                <Form.Label>Price:</Form.Label>
+                <Form.Control type="number" name="price" value={product.price} onChange={handleChange} />
+              </Form.Group>
     
-          <label>
-            Stock Quantity:
-            <input type="number" name="stock_quantity" value={product.stock_quantity} onChange={handleChange} />
-          </label>
-          <br />
+              <Form.Group controlId="formStockQuantity">
+                <Form.Label>Stock Quantity:</Form.Label>
+                <Form.Control type="number" name="stock_quantity" value={product.stock_quantity} onChange={handleChange} />
+              </Form.Group>
     
-          <button type="submit">Add Product</button>
-        </form>
-      )}
+              <Button variant="primary" type="submit">
+                Add Product
+              </Button>
+            </Form>
+          )}
         </div>
-        )
-        
-    
-}
+      );
+    }
 
 export default Farmer;
