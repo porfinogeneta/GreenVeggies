@@ -14,7 +14,7 @@ export async function createProduct(req,res) {
         message: `Message ${messageId} published :)`,
     });
 }
-
+ 
 export async function pullProduct (req, res) {
     try {
         // retrive messeges content
