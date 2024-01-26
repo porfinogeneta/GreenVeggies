@@ -21,7 +21,8 @@ function About() {
     <p>Beyond providing fresh, nutritious produce, GreenVeggies is a hub for community engagement. Join us for workshops, tastings, and events that celebrate the joys of wholesome living. Our commitment to community extends beyond the walls of our store, as we actively participate in local initiatives that promote food security and environmental stewardship.</p>
 
     <p>Indulge in a shopping experience that not only nourishes your body but also supports local farmers and contributes to a more sustainable future. We can't wait to welcome you to GreenVeggies – where the journey from farm to table is a celebration of nature's abundance.</p>
-
+    <br></br>
+    <br></br>
   </div>;
 }
 
