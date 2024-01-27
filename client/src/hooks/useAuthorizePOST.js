@@ -10,7 +10,6 @@ const useAuthorizePOST = () => {
 
     const addData = async (body = null) => {
         setLoading(true)
-        console.log(body);
         const accessToken = Cookies.get('accessToken');
         const uid = Cookies.get('authorizeToken');
         try {
@@ -20,7 +19,7 @@ const useAuthorizePOST = () => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
                     'uid': 'UID ' + uid,
-                    'Role': 'Role: ' + 'FARMER' // role changing
+                    'Role': 'Role: ' + 'ADMIN' // role changing
                     }
             }
             if (body){
@@ -35,7 +34,7 @@ const useAuthorizePOST = () => {
 
             const result =  await response.json();
             setNewData(result)
-            console.log("from post hook" +newData);
+            // console.log("from post hook" +newData);
 
         }catch (error) {
             setError(error)

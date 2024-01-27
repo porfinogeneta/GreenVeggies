@@ -42,14 +42,13 @@ export async function listenForPullMessages (subscriptionName, timeout) {
 
   
     setTimeout(async () => {
-        console.log("Message Pulled: \n", data);
-        console.log(`${messageCount} message(s) received.`);
+        // console.log("Message Pulled: \n", data);
+        // console.log(`${messageCount} message(s) received.`);
         subscription.removeListener("message", messageHandler);
 
         const promises = data.map(el => addNotification(el))
     
         try {
-            console.log('something');
             await Promise.all(promises)
             
         }catch(err){

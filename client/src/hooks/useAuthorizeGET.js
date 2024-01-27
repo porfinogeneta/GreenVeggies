@@ -3,11 +3,10 @@ import Cookies from 'js-cookie'
 
 
 const useAuthorizeGET = () => {
-    const [data, setData] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    const fetchData = async () => {
+    const fetchData = async (role, link) => {
         setLoading(true)
         const accessToken = Cookies.get('accessToken');
         const uid = Cookies.get('authorizeToken');
@@ -18,20 +17,18 @@ const useAuthorizeGET = () => {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + accessToken,
                     'uid': 'UID ' + uid,
-                    'Role': 'Role: ' + 'ADMIN' // role changing
+                    'Role': 'Role: ' + role // role changing
                     }
             } 
 
-            const response = await fetch(`http://localhost:8001/notifications`, options) 
+            const response = await fetch(link, options) 
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            console.log(response);
             const result = await response.json()
             return result
-            setData(result)
         }catch (error) {
             setError(error)
         }finally {
@@ -41,7 +38,7 @@ const useAuthorizeGET = () => {
     }
 
      // result from useEffect
-    return {data, loading, error, fetchData}
+    return {loading, error, fetchData}
 
 }
 

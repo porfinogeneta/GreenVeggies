@@ -35,9 +35,7 @@ function Admin() {
 
 
 
-    useEffect(() => {
-        setProducts(initialData)
-    }, [initialData])
+    
     
     const handleDelete = async (id) => {
         try {
@@ -50,41 +48,41 @@ function Admin() {
         }
     };
 
-    const handleUpdate = async (id) => {
+    const handleUpdate = async (id, e) => {
+        e.preventDefault();
         try {
-            const body = {col_name: 'category', col_val: 'koń'}
-            await updateData(id, body)
+            await updateData(id, updateForm, 'ADMIN')
             // update local state
-            setProducts((prevProducts) => 
-                prevProducts.map(item => 
-                    item.id === id ? { ...item, [body.col_name]: body.col_val } : item)
-                );
+            setProducts((prevProducts) =>
+                prevProducts.map((item) => (item.id === id ? { ...item, ...updateForm } : item))
+            );
+            setEditMode(null);
         }catch(error) {
             console.error("Error updating item:", error);
         }
     }
-  
+
     useEffect(() => {
-        setProducts(initialData);
-    }, [initialData]);
+        setProducts(initialData)
+    }, [initialData])
+  
 
-  useEffect(() => {
-
-    // Update form with current values when entering edit mode
-    if (editMode !== null) {
-      const currentItem = products.find((item) => item.id === editMode);
-      setUpdateForm(currentItem);
-    } else {
-      // Clear the form when exiting edit mode
-      setUpdateForm({
-        name: '',
-        description: '',
-        category: '',
-        price: '',
-        stock_quantity: '',
-      });
-    }
-  }, [editMode, products]);
+    useEffect(() => {
+        // Update form with current values when entering edit mode
+        if (editMode !== null) {
+        const currentItem = products.find((item) => item.id === editMode);
+        setUpdateForm(currentItem);
+        } else {
+        // Clear the form when exiting edit mode
+        setUpdateForm({
+            name: '',
+            description: '',
+            category: '',
+            price: '',
+            stock_quantity: '',
+        });
+        }
+    }, [editMode, products, initialData]);
 
     const handleReject = async (id) => {
         try {
@@ -106,6 +104,7 @@ function Admin() {
             // update local state
             setNotifications((prevNotifications) => prevNotifications.filter(item => item.id !== id));
             setProducts((prevProducts) => [...prevProducts, new_product])
+            await handleReject(id)
         } catch (error) {
             console.error("Error deleting item:", error);
         }
@@ -115,7 +114,7 @@ function Admin() {
 
     const handleLoad = async () => {
         try {
-            const res = await fetchData()
+            const res = await fetchData('ADMIN', 'http://localhost:8001/notifications')
             setNotifications(res)
 
         }catch(error) {
@@ -123,27 +122,6 @@ function Admin() {
         }
     }
 
-//   const handleDelete = async (id) => {
-//     try {
-//       await deleteData(id);
-//       setProducts((prevProducts) => prevProducts.filter((item) => item.id !== id));
-//     } catch (error) {
-//       console.error("Error deleting item:", error);
-//     }
-//   };
-
-//   const handleUpdate = async (id, e) => {
-//     e.preventDefault(); // Prevent the default form submission behavior
-//     try {
-//       await updateData(id, updateForm);
-//       setProducts((prevProducts) =>
-//         prevProducts.map((item) => (item.id === id ? { ...item, ...updateForm } : item))
-//       );
-//       setEditMode(null);
-//     } catch (error) {
-//       console.error("Error updating item:", error);
-//     }
-//   };
 
   const toggleEditMode = (id) => {
     setEditMode((prevEditMode) => (prevEditMode === id ? null : id));
