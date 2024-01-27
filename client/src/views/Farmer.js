@@ -3,20 +3,32 @@ import { Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 // import useAuthorizePOST from '../hooks/useAuthorizePOST';
 import useModerationPOST from '../hooks/useModerationPOST';
-import useGET from '../hooks/useGET';
+import useAuthorizeGET from '../hooks/useAuthorizeGET';
 import '../views/styles/farmer_styles.css';
+import Cookies from 'js-cookie'
 
 function Farmer() {
-
-    const {data: products, loading: productsLoad, error: productsError} = useGET()
+  const uid = Cookies.get('authorizeToken');
+    
+    const {loading: productsLoad, error: productsError, fetchData} = useAuthorizeGET()
   
     const {loading, error, postMessage} = useModerationPOST();
 
     const [productsList, setProductsList] = useState(null)
 
     useEffect(() => {
-        setProductsList(products)
-    }, [products])
+      const fetchDataAndSetState = async () => {
+        try {
+          const products = await fetchData('FARMER', `http://localhost:8001/products/farmer/70powABQsAOf57JTUcObV8xRyg82`);
+          setProductsList(products);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchDataAndSetState();
+        
+    }, [uid])
 
     const [product, setProduct] = useState({
         name: '',
@@ -28,30 +40,34 @@ function Farmer() {
     
       const handleChange = (e) => {
         const { name, value } = e.target;
+        
         setProduct((prevProduct) => ({
           ...prevProduct,
           [name]: value
         }));
+      
       };
       // on form submitted add product
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+          const uid = Cookies.get('authorizeToken');
             // wait till product is added
-            await postMessage(product)
+            await postMessage({...product, farmer_id: uid})
             // update local state
             // setProductsList((prevProducts) => [...prevProducts, product]);
             // console.log('Product submitted:', product);
             // Reset the form after submission
             setProduct({
-            name: '',
-            description: '',
-            category: '',
-            price: '',
-            stock_quantity: ''
+              name: '',
+              description: '',
+              category: '',
+              price: '',
+              stock_quantity: ''
             });
         }catch(error){
-            productsError = error
+            console.log(error);
+            // productsError = error
         }
         
       };
@@ -66,7 +82,7 @@ function Farmer() {
             <p>Error: {error.message}</p>
           ) : (
             <ul className="product-list">
-              {productsList.map((item) => (
+              {productsList !== null ? productsList.map((item) => (
                 <span key={item.id}>
                   <li className="sub-list">
                     {' '}
@@ -77,7 +93,7 @@ function Farmer() {
                     𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$
                   </li>
                 </span>
-              ))}
+              )): (<>No products</>)}
             </ul>
           )}
           {loading ? (

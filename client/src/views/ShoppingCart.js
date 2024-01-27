@@ -2,11 +2,15 @@ import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import '../views/styles/shoppingcart_styles.css';
+import useAuthorizeUPDATE from '../hooks/useAuthorizeUPDATE';
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = React.useState([]);
   const [editedItemId, setEditedItemId] = React.useState(null);
   const [editedQuantity, setEditedQuantity] = React.useState(0);
+
+  // hooks
+  const {updateData} = useAuthorizeUPDATE();
 
   React.useEffect(() => {
     // Retrieve cart items from cookies
@@ -45,9 +49,16 @@ const ShoppingCart = () => {
     updateCart(updatedCart);
   };
 
-  const handleOrder = () => {
+  const handleOrder = async () => {
     console.log('Ordering products:', cartItems);
-    updateCart([]);
+    try {
+      const quantity_updates = cartItems.map(item => updateData(item.id, {col_name: 'stock_quantity', col_val: item.stock_quantity - item.quantity}, 'USER'))
+      await Promise.all(quantity_updates)
+      updateCart([]);
+    }catch(err) {
+      console.log(err);
+    }
+    
   };
 
   return (
@@ -61,6 +72,7 @@ const ShoppingCart = () => {
                 <Card.Title className="card-title">{item.name}</Card.Title>
                 <Card.Text>𝗔𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲: {item.stock_quantity}</Card.Text>
                 <Card.Text>𝗢𝗿𝗱𝗲𝗿𝗲𝗱: {item.quantity}</Card.Text>
+                <Card.Text>Price: ${item.price}</Card.Text>
                 <Card.Text>𝗧𝗼𝘁𝗮𝗹 𝗣𝗿𝗶𝗰𝗲: ${(item.price * item.quantity).toFixed(2)}</Card.Text>
                 {editedItemId === item.id ? (
                   <>

@@ -8,12 +8,16 @@ USE green_veggies;
 CREATE TABLE products (
   id integer PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  image VARCHAR(255),
   description TEXT,
   category VARCHAR(50),
   price DECIMAL(10,2),
   stock_quantity INT,
+  farmer_id VARCHAR(40),
+  FOREIGN KEY (farmer_id) REFERENCES users(UID),
   added TIMESTAMP NOT NULL DEFAULT NOW()
 );
+
 
 
 CREATE TABLE users (
@@ -24,11 +28,13 @@ CREATE TABLE users (
 CREATE TABLE notifications (
   id integer PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(255) NOT NULL,
+  image VARCHAR(255),
   description TEXT,
   category VARCHAR(50),
   price DECIMAL(10,2),
   stock_quantity INT,
-  link VARCHAR(255),
+  farmer_id VARCHAR(40),
+  FOREIGN KEY (farmer_id) REFERENCES users(UID),
   added TIMESTAMP NOT NULL DEFAULT NOW()
 );
 

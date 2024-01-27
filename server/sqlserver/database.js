@@ -32,11 +32,18 @@ export async function getProduct(id){
     return rows[0]
 }
 
-export async function addProduct(name, description, category, price, stock_quantity) {
+export async function getProductsByFarmer(id){
+    const [rows] = await pool.query(
+        `SELECT * FROM products WHERE farmer_id = ?`,[id]
+    )
+    return rows
+}
+
+export async function addProduct(name, description, category, price, stock_quantity, farmer_id) {
     const [result] = await pool.query(`
-    INSERT INTO products (name, description, category, price, stock_quantity)
-    VALUES (?, ?, ?, ?, ?)
-    `, [name, description, category, price, stock_quantity])
+    INSERT INTO products (name, description, category, price, stock_quantity, farmer_id)
+    VALUES (?, ?, ?, ?, ?, ?)
+    `, [name, description, category, price, stock_quantity, farmer_id])
     const id = result.insertId;
     return await getProduct(id);
 }
@@ -49,7 +56,7 @@ export async function deleteProduct(id){
 }
 
 
-export async function updateProduct(col_name, new_val, id){
+export async function updateOneColumnProduct(col_name, new_val, id){
 
     const allowedColumns = ['description', 'name', 'price', 'stock_quantity', 'category']; 
 
@@ -63,11 +70,21 @@ export async function updateProduct(col_name, new_val, id){
     return result
 }
 
+export async function updateProduct(product, id){
+    const [result] = await pool.query(
+        `UPDATE products SET name = ?, description = ?, category = ?,
+         price = ?, stock_quantity = ? 
+         WHERE id = ?`, [product.name, product.description, product.category, product.price, product.stock_quantity, id]
+    )
+    return result
+}
+
 export async function addNotification(product){
+    console.log(product);
     const [result] = await pool.query(`
-    INSERT INTO notifications (name, description, category, price, stock_quantity)
-    VALUES (?, ?, ?, ?, ?)
-    `, [product.name, product.description, product.category, product.price, product.stock_quantity])
+    INSERT INTO notifications (name, description, category, price, stock_quantity, farmer_id)
+    VALUES (?, ?, ?, ?, ?, ?)
+    `, [product.name, product.description, product.category, product.price, product.stock_quantity, product.farmer_id])
     return await result.insertId;
 }
 
