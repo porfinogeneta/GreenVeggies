@@ -21,6 +21,7 @@ button {
   font-weight: 550;
   text-align: center;
   width: 20%;
+  border-width: 1.7px;
   display: block;
   transform: translateX(-50%, -50%);
   margin: 0 auto;

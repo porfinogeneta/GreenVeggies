@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useGET from '../hooks/useGET.js';
 import useAuthorizeDELETE from '../hooks/useAuthorizeDELETE.js';
 import useAuthorizeUPDATE from '../hooks/useAuthorizeUPDATE.js';
-
+import { Button } from 'react-bootstrap';
 import useAuthorizePULL from '../hooks/useAuthorizePULL.js';
 import useAuthorizeGET from '../hooks/useAuthorizeGET.js';
 import useAuthorizePOST from '../hooks/useAuthorizePOST.js';
@@ -166,106 +166,111 @@ function Admin() {
                                 item.price.includes(searchQuery)))
     : [];
 
-  return (
-    <div>
-        <div>
-
-        
-      <h1>Admin panel</h1>
-      <input className="admin-input"
-        type="text"
-        placeholder="Search by name/price..."
-        value={searchQuery}
-        onChange={handleSearchChange}
-      />
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error.message}</p>
-      ) : (
-        <ul className="admin-list">
-          {filteredProducts.map((item) => (
-            <span key={item.id}>
-              <li className="admin-info">
-                𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$<br></br>
-                𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br> 𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
-                𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {item.description}
-              </li>
-              <button className="admin-button" onClick={() => handleDelete(item.id)}>
-                Delete
-              </button>
-              <button className="admin-button" onClick={() => toggleEditMode(item.id)}>
-                Edit
-              </button>
-              {editMode === item.id && (
-                <form className="edit-product" onSubmit={(e) => handleUpdate(item.id, e)}>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    value={updateForm.name}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="description"
-                    placeholder="Description"
-                    value={updateForm.description}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="category"
-                    placeholder="Category"
-                    value={updateForm.category}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="price"
-                    placeholder="Price"
-                    value={updateForm.price}
-                    onChange={handleChange}
-                  />
-                  <input
-                    type="text"
-                    name="stock_quantity"
-                    placeholder="Stock Quantity"
-                    value={updateForm.stock_quantity}
-                    onChange={handleChange}
-                  />
-                  <button type="submit">Update</button>
-                </form>
-              )}
-            </span>
-          ))}
-        </ul>
-      )}
-        <div>
-            <h2>Notifications</h2>
-            <button onClick={handleLoad}>Refresh notifications</button>
-            {notiLoad ? (
-                <p>Loading notifications...</p>
-            ) : notiErr ? (
-                <p>Error: {notiErr.message}</p>
-            ) : (
-                notifications && (
-                    <ul>
-                        {notifications.map((notification) => (
-                            <div>
-                                <li key={notification.id}>{notification.name}</li>
-                                <button onClick={() => handleAccept(notification.id)}>Accept</button>
-                                <button onClick={() => handleReject(notification.id)}>Reject</button>
-                            </div>
-                            
-                        ))}
-                    </ul>
-                )
-            )}   
+    return (
+      <div>
+        <h1>Admin panel</h1>
+        <input className="admin-input"
+          type="text"
+          placeholder="Search by name/price..."
+          value={searchQuery}
+          onChange={handleSearchChange}
+        />
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error.message}</p>
+        ) : (
+          <ul className="admin-list">
+            {filteredProducts.map((item) => (
+              <span key={item.id}>
+                <li className="admin-info">
+                  𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$<br></br>
+                  𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br> 𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
+                  𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {item.description}
+                </li>
+                <button className="admin-button" onClick={() => handleDelete(item.id)}>
+                  Delete
+                </button>
+                <button className="admin-button" onClick={() => toggleEditMode(item.id)}>
+                  Edit
+                </button>
+                {editMode === item.id && (
+                  <form className="edit-product" onSubmit={(e) => handleUpdate(item.id, e)}>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      value={updateForm.name}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="description"
+                      placeholder="Description"
+                      value={updateForm.description}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="category"
+                      placeholder="Category"
+                      value={updateForm.category}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="price"
+                      placeholder="Price"
+                      value={updateForm.price}
+                      onChange={handleChange}
+                    />
+                    <input
+                      type="text"
+                      name="stock_quantity"
+                      placeholder="Stock Quantity"
+                      value={updateForm.stock_quantity}
+                      onChange={handleChange}
+                    />
+                    <button type="submit">Update</button>
+                  </form>
+                )}
+              </span>
+            ))}
+          </ul>
+        )}
+          <div className="mt-4">
+          <h2 name="notif">Notifications</h2>
+          <Button variant="info" className="info" onClick={handleLoad}>
+            Refresh Notifications
+          </Button>
+          {notiLoad ? (
+            <p>Loading notifications...</p>
+          ) : notiErr ? (
+            <p>Error: {notiErr.message}</p>
+          ) : (
+            notifications && (
+              <ul className="notification-container">
+                {notifications.map((notification) => (
+                  <li key={notification.id} className="notification-card">
+                    𝗡𝗮𝗺𝗲: {notification.name}<br></br>
+                    𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {notification.category}<br></br>
+                    𝗣𝗿𝗶𝗰𝗲: {notification.price}<br></br>
+                    𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {notification.stock_quantity}<br></br>
+                    {/* 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {notification.description} */}
+                    <button className="notification-button-yes" onClick={() => handleAccept(notification.id)}>
+                      Accept
+                    </button>
+                    <button className="notification-button-no" onClick={() => handleReject(notification.id)}>
+                      Reject
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )
+          )}
         </div>
-    </div>
-    </div>
-  );
-}
+      </div>
+    );
+  }
 
 export default Admin;

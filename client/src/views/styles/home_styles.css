@@ -30,6 +30,7 @@ body{
 .filter-button {
   width: 32%;
   background-color: #fffbd4;
+  border-width: 1.7px;
 }
 
 .filter-button.active {
