@@ -33,12 +33,16 @@
 .admin-button {
   background-color: #6a4844;
   color: #fff;
+  border-width: 1.3px;
   padding: 5px 10px;
   margin-top: 10px;
   width: 100%;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  &:hover {
+    background-color: #54322e;
+  }
 }
 
 .edit-product {
@@ -59,12 +63,17 @@
 .edit-product button {
   background-color: #b8dfcd;
   color: #113c2c;
+  border-width: 1.3px;
   padding: 5px 10px;
   width: 100px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   margin: 0 auto;
+
+  &:hover {
+    background-color: #78ab93;
+  }
 }
 
 .admin-input {
@@ -76,4 +85,81 @@
   margin-top: 10px;
   align-self: center;
   background-color: #cbf8e3;
+}
+
+.info {
+  background-color: #aea8c4;
+  margin-top: 1%;
+  margin-bottom: 2%;
+  
+  &:hover {
+    background-color: #887faa;
+  }
+}
+
+/* Style for the notifications container */
+.notification-container {
+  list-style: none;
+  padding-left: 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 5%;
+}
+
+/* Style for each notification card */
+.notification-card {
+  background-color: #e0e0f0;
+  border: 1px solid #000000;
+  padding: 15px;
+  border-radius: 5px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: justify;
+}
+
+/* Style for the notification buttons */
+.notification-button-yes {
+  background-color: #a4d0bb;
+  color: #113c2c;
+  border-width: 1.3px;
+  padding: 5px 10px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-bottom: -10px;
+ 
+  &:hover {
+    background-color: #6fba96;
+  }
+}
+
+.notification-button-no {
+  background-color: #e38e8e;
+  color: #113c2c;
+  border-width: 1.3px;
+  padding: 5px 10px;
+  width: 100px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 1%;
+  margin-bottom: 10px;
+  
+  &:hover {
+    background-color: #c87171;
+  }
+}
+
+/* Style for the notifications loading and error messages */
+.notification-message {
+  margin-top: 20px;
+  font-size: 16px;
 }

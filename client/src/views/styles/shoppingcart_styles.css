@@ -170,7 +170,7 @@ h1::after {
   border-radius: 10px;
   border-width: 1.3px;
   display: block;
-  margin: -30px auto 0 auto;
+  margin: -30px auto 30px auto;
   transform: translateX(-50%, -50%);
   transition: background-color 0.3s ease-in-out;
 
