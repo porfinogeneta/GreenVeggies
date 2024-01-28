@@ -2,9 +2,15 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import '../views/styles/login_styles.css'
+import { useNavigate } from "react-router-dom";
 
 
-const loginWithGoogle = () => {
+function Login() {
+
+  const navigate = useNavigate();
+
+  const loginWithGoogle = () => {
+
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -15,7 +21,7 @@ const loginWithGoogle = () => {
             
             // The signed-in user info.
             const user = result.user;
-            console.log(user);
+            // console.log(user);
             // console.log(user);
             // cookie z tokenem do autentykacji
             Cookies.set('accessToken', user.accessToken, { secure: true, sameSite: 'strict' });
@@ -32,11 +38,14 @@ const loginWithGoogle = () => {
             // The AuthCredential type that was used.
             const credential = GoogleAuthProvider.credentialFromError(error);
             // ...
+        }).finally(() => {
+          navigate('/')
+          window.location.reload();
+          
         });
-}
+  }
 
 
-function Login() {
   return <div>
     <h1>Login</h1>
     <h3>You are currently not logged in. <br></br> Sign in with your Google account using the button below. <br></br></h3>

@@ -39,11 +39,11 @@ export async function getProductsByFarmer(id){
     return rows
 }
 
-export async function addProduct(name, description, category, price, stock_quantity, farmer_id) {
+export async function addProduct(name, description, category, price, stock_quantity, farmer_id, image = null) {
     const [result] = await pool.query(`
-    INSERT INTO products (name, description, category, price, stock_quantity, farmer_id)
-    VALUES (?, ?, ?, ?, ?, ?)
-    `, [name, description, category, price, stock_quantity, farmer_id])
+    INSERT INTO products (name, description, category, price, stock_quantity, farmer_id, image)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [name, description, category, price, stock_quantity, farmer_id, image])
     const id = result.insertId;
     return await getProduct(id);
 }

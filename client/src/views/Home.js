@@ -112,6 +112,11 @@ function Home() {
                 <Col key={item.id} xs={12} sm={6} md={4} lg={3}>
                   <Card className="mb-3 card">
                     <Card.Body>
+                    {item.image !== null ? (
+                      <img src={`https://storage.googleapis.com/greenveggies_images/${item.image}`} alt="Notification Image" />
+                    ) : (
+                      <></>
+                    )}
                       <Card.Title>{item.name}</Card.Title>
                       <Card.Text>𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}</Card.Text>
                       <Card.Text>𝗦𝘁𝗼𝗰𝗸 𝗾𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}</Card.Text>
