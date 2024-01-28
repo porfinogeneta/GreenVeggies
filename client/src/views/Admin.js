@@ -248,7 +248,7 @@ function Admin() {
           ) : notiErr ? (
             <p>Error: {notiErr.message}</p>
           ) : (
-            notifications && (
+            notifications !== null && (
               <ul className="notification-container">
                 {notifications.map((notification) => (
                   <li key={notification.id} className="notification-card">

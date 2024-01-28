@@ -1,0 +1,44 @@
+/* Navbar styles */
+.navbar {
+    background-color: #113c2c;
+    padding: 20px;
+    /* position: fixed; */
+    width: 100%;
+    z-index: 1000;
+  }
+  
+  /* Navigation link styles */
+  .nav-link {
+    color: #fff;
+    font-size: 1.5em;
+    text-decoration: none;
+    margin-right: 5%;
+    font-weight: bold; 
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+    color: rgb(225, 225, 183);
+  }
+  
+  /* Desktop version */
+  @media only screen and (min-width: 768px) {
+    .navbar + * {
+      padding-top: 6%;
+    }
+  }
+  
+  /* Mobile version styles */
+  @media only screen and (max-width: 767px) {
+    .navbar {
+      padding: 10px;
+    }
+  
+    .nav-link {
+      font-size: 1.2em;
+    }
+  
+    .navbar + * {
+      padding-top: 50px;
+    } 
+ }

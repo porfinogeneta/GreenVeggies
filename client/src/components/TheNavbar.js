@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import '../views/styles/about_styles.css';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 import useAuthorizeGET from '../hooks/useAuthorizeGET';
 import Cookies from 'js-cookie'
 import { getAuth, signOut } from "firebase/auth";
+import '../components/styles/the_navbar_styles.css'
 
 function TheNavbar() {
     const {loading, error, fetchData} = useAuthorizeGET()
@@ -34,7 +34,6 @@ function TheNavbar() {
                 // reset cookies
                 Cookies.set('accessToken', null);
                 Cookies.set('authorizeToken',null)
-                uid = Cookies.get('authorizeToken');
                 window.location.reload();
             }).catch((error) => {
                 console.log(error);
@@ -48,16 +47,10 @@ function TheNavbar() {
                 <Nav.Link as={Link} to="/" className="nav-link">
                 Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/about" className="nav-link">
-                About
-                </Nav.Link>
                 {user ? (
                 <>
-                    <Nav.Link as={Link} to="/profile" className="nav-link">
-                    Profile
-                    </Nav.Link>
                     {/* Change to farmer later */}
-                    {user.role === 'USER' && (
+                    {user.role === 'FARMER' || user.role == 'ADMIN' && (
                     <Nav.Link as={Link} to="/farmer" className="nav-link">
                         Farmer
                     </Nav.Link>

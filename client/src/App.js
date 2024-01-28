@@ -21,6 +21,7 @@ import './App.css'
 function App() {  
   return (
     <Router>
+      <TheNavbar></TheNavbar>
       <Container>
         <Routes>
           <Route path="/" element={<Home />} exact />

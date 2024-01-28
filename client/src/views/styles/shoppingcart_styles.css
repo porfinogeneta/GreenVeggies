@@ -21,7 +21,7 @@ body{
   margin-top: 0%;
   margin-bottom: 0%;
   border: none;
-  border-radius: 20px;
+  border-radius: 16px;
   margin-bottom: 20px;
   transition: transform 0.3s ease-in-out;
   width: 300px; /* TO FIX: Make it responsively wide */

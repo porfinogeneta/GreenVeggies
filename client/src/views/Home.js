@@ -53,7 +53,7 @@ function Home() {
 
   return (
     <Container className="mt-5">
-      <h1 className="text-center mb-4">Product List</h1>
+      {/* <h1 className="text-center mb-4">Product List</h1>
       <button id="instructionButton" onClick={toggleInstructions}>Click to Show Instructions</button>
       <div id="instructionsContainer" className={`instructionsContainer ${showInstructions ? 'show' : 'hide'}`}>
           <h3>Click the 𝗔𝗱𝗱 𝘁𝗼 𝗰𝗮𝗿𝘁 button to add a product to your cart. You will be redirected to your cart then.<br />
@@ -61,7 +61,7 @@ function Home() {
             To search for a specific product, input the 𝗻𝗮𝗺𝗲 of the product you're looking for in the search bar below.<br />
             Alternatively, input the 𝗽𝗿𝗶𝗰𝗲 (as a number) you're interested in - it will show all products of that cost.
           </h3>
-        </div>
+        </div> */}
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
           <div className='search-filter'>

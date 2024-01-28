@@ -66,13 +66,12 @@ form input,
 form textarea {
   background-color:#d1d8d6;
   border: none;
-  font-weight: 555;
   font-size: 100%;
   text-wrap: balance;
-  border-radius: 15px;
+  border-radius: 8px;
   border: none;
-  width: 60%;
-  text-align: center;
+  width: 50%;
+  text-align: left;
   padding: 10px;
   margin: 0 auto 4px auto;
   box-sizing: border-box;
