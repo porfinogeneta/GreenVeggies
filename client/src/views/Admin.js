@@ -182,9 +182,11 @@ function Admin() {
             {filteredProducts.map((item) => (
               <span key={item.id}>
                 <li className="admin-info">
-                  𝗡𝗮𝗺𝗲: {item.name}<br></br>𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$<br></br>
-                  𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br> 𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
-                  𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {item.description}
+                  Name: {item.name}<br></br>
+                  Category: {item.category}<br></br>
+                  Price: {(item.price * 1).toFixed(2)}$<br></br>
+                  Quantity: {item.stock_quantity}<br></br>
+                  Describtion: {item.description}
                 </li>
                 <button className="admin-button" onClick={() => handleDelete(item.id)}>
                   Delete
@@ -199,13 +201,6 @@ function Admin() {
                       name="name"
                       placeholder="Name"
                       value={updateForm.name}
-                      onChange={handleChange}
-                    />
-                    <input
-                      type="text"
-                      name="description"
-                      placeholder="Description"
-                      value={updateForm.description}
                       onChange={handleChange}
                     />
                     <input
@@ -229,6 +224,13 @@ function Admin() {
                       value={updateForm.stock_quantity}
                       onChange={handleChange}
                     />
+                    <input
+                      type="text"
+                      name="description"
+                      placeholder="Description"
+                      value={updateForm.description}
+                      onChange={handleChange}
+                    />
                     <button type="submit">Update</button>
                   </form>
                 )}
@@ -250,17 +252,15 @@ function Admin() {
               <ul className="notification-container">
                 {notifications.map((notification) => (
                   <li key={notification.id} className="notification-card">
-                    𝗡𝗮𝗺𝗲: {notification.name}<br></br>
-                    𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {notification.category}<br></br>
-                    𝗣𝗿𝗶𝗰𝗲: {notification.price}<br></br>
-                    𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {notification.stock_quantity}<br></br>
+                    Name: {notification.name}<br></br>
+                    Category: {notification.category}<br></br>
+                    Price: {notification.price}<br></br>
+                    Quantity: {notification.stock_quantity}<br></br>
                     {notification.image !== null ? (
                       <img src={`https://storage.googleapis.com/greenveggies_images/${notification.image}`} alt="Notification Image" />
                     ) : (
                       <></>
                     )}
-                    
-                    {/* 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {notification.description} */}
                     <button className="notification-button-yes" onClick={() => handleAccept(notification.id)}>
                       Accept
                     </button>

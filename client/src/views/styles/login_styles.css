@@ -1,7 +1,11 @@
-Background styling
+* {
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+  font-family: 'Lato', sans-serif;
+}
+
 body {
-    background: rgb(78, 100, 80);
-    background: radial-gradient(circle, rgb(176, 208, 178) 0%, rgba(194, 242, 186, 1) 100%);
+    background: #f3f6ea;
+    /* background: radial-gradient(circle, rgb(176, 208, 178) 0%, rgba(194, 242, 186, 1) 100%); */
   }
 
 h3 {
@@ -12,22 +16,39 @@ h3 {
 h4 {
   text-align: center;
   font-weight: 555;
-  margin-top: 0px;
+  margin-top: 5px;
+  color: #0e3b1d;
 }
-
 
 button {
   font-size: 20px;
   font-weight: 550;
   text-align: center;
   width: 20%;
-  border-width: 1.7px;
+  border: none;
   display: block;
   transform: translateX(-50%, -50%);
   margin: 0 auto;
   padding: 5px 0;
   cursor: pointer;
   border-radius: 30px;
-  background-color: rgb(99, 195, 195);
-  color: rgb(25, 24, 23);
+  background-color: rgb(121, 207, 207);
+  color: rgb(11, 12, 43);
+  transition: transform 0.3s ease-out;
+  
+  &:hover {
+    transform: scale(1.05);
+    background-color: rgb(98, 163, 163);
+  }
+}
+
+@media (max-width: 875px) {
+  button {
+    width: 70%;
+  }
+
+  h3, h4 {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }

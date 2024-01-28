@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import '../views/styles/shoppingcart_styles.css';
@@ -8,6 +8,7 @@ const ShoppingCart = () => {
   const [cartItems, setCartItems] = React.useState([]);
   const [editedItemId, setEditedItemId] = React.useState(null);
   const [editedQuantity, setEditedQuantity] = React.useState(0);
+  const [orderPlaced, setOrderPlaced] = useState(false); 
 
   // hooks
   const {updateData} = useAuthorizeUPDATE();
@@ -55,6 +56,7 @@ const ShoppingCart = () => {
       const quantity_updates = cartItems.map(item => updateData(item.id, {col_name: 'stock_quantity', col_val: item.stock_quantity - item.quantity}, 'USER'))
       await Promise.all(quantity_updates)
       updateCart([]);
+      setOrderPlaced(true);
     }catch(err) {
       console.log(err);
     }
@@ -70,10 +72,10 @@ const ShoppingCart = () => {
             <Card className={`mb-3 card ${index % 2 === 0 ? 'even' : 'odd'}`}>
               <Card.Body>
                 <Card.Title className="card-title">{item.name}</Card.Title>
-                <Card.Text>𝗔𝘃𝗮𝗶𝗹𝗮𝗯𝗹𝗲: {item.stock_quantity}</Card.Text>
-                <Card.Text>𝗢𝗿𝗱𝗲𝗿𝗲𝗱: {item.quantity}</Card.Text>
+                <Card.Text>Available: {item.stock_quantity}</Card.Text>
+                <Card.Text>Ordered: {item.quantity}</Card.Text>
                 <Card.Text>Price: ${item.price}</Card.Text>
-                <Card.Text>𝗧𝗼𝘁𝗮𝗹 𝗣𝗿𝗶𝗰𝗲: ${(item.price * item.quantity).toFixed(2)}</Card.Text>
+                <Card.Text>Total Price: ${(item.price * item.quantity).toFixed(2)}</Card.Text>
                 {editedItemId === item.id ? (
                   <>
                     <input
@@ -95,9 +97,13 @@ const ShoppingCart = () => {
         ))}
       </Row>
       <div className="text-center mt-3">
-        <button className="order-button" onClick={handleOrder}>
-          Order products
-        </button>
+      {!orderPlaced && (
+          <button className="order-button" onClick={handleOrder}>
+            Order products
+          </button>
+      )}
+        {orderPlaced && <p id="thank-you"> Thank you for your purchase!
+        <br></br>Your products will be waiting for you to pick up in the store</p>}
       </div>
     </Container>
   );
