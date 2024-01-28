@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import useGET from '../hooks/useGET.js';
 import useAuthorizeDELETE from '../hooks/useAuthorizeDELETE.js';
 import useAuthorizeUPDATE from '../hooks/useAuthorizeUPDATE.js';
-import { Button } from 'react-bootstrap';
+
 import useAuthorizePULL from '../hooks/useAuthorizePULL.js';
 import useAuthorizeGET from '../hooks/useAuthorizeGET.js';
 import useAuthorizePOST from '../hooks/useAuthorizePOST.js';
 import '../views/styles/admin_styles.css';
+
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Dropdown from 'react-bootstrap/Dropdown';
+
+
 
 function Admin() {
   const { data: initialData, loading, error } = useGET();
@@ -28,6 +34,8 @@ function Admin() {
     const [notifications, setNotifications] = useState(null);
     const {data: noti, loading: notiLoad, error: notiErr, fetchData} = useAuthorizeGET()
     const {newData, newProducts, loading: nl, error: er, addData} = useAuthorizePOST()
+
+    const [photosOptions, setPhotosOptions] = useState([])
 
 
     // look for subscribed notifications on mounted
@@ -98,7 +106,10 @@ function Admin() {
 
     const handleAccept = async (id) => {
         try {
-            const new_product = notifications.find(pr => pr.id == id)
+            let new_product = notifications.find(pr => pr.id == id)
+            if (new_product.image == null || undefined){
+              new_product.image = null
+            }
             // hook method
             await addData(new_product);
             // update local state
@@ -111,11 +122,13 @@ function Admin() {
     }
 
 
-
+    // notifications load
     const handleLoad = async () => {
         try {
             const res = await fetchData('ADMIN', 'http://localhost:8001/notifications')
             setNotifications(res)
+            const photos_names = await fetchData('ADMIN', 'http://localhost:8001/images')
+            setPhotosOptions(photos_names)
 
         }catch(error) {
             console.log(error);
@@ -134,6 +147,13 @@ function Admin() {
       [name]: value,
     }));
   };
+
+  // update notification with a photo
+  const handleAddPhoto = async (id, selectedPhoto) => {
+    console.log(selectedPhoto);
+    setNotifications((prevNotifications) => prevNotifications.map((item) => 
+    item.id == id ? {...item, image: selectedPhoto} : item));
+  }
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
@@ -236,13 +256,31 @@ function Admin() {
                     Category: {notification.category}<br></br>
                     Price: {notification.price}<br></br>
                     Quantity: {notification.stock_quantity}<br></br>
-                    {/* 𝗗𝗲𝘀𝗰𝗿𝗶𝗽𝘁𝗶𝗼𝗻: {notification.description} */}
+                    {notification.image !== null ? (
+                      <img src={`https://storage.googleapis.com/greenveggies_images/${notification.image}`} alt="Notification Image" />
+                    ) : (
+                      <></>
+                    )}
                     <button className="notification-button-yes" onClick={() => handleAccept(notification.id)}>
                       Accept
                     </button>
                     <button className="notification-button-no" onClick={() => handleReject(notification.id)}>
                       Reject
                     </button>
+                    <Dropdown onSelect={(selectedPhoto) => handleAddPhoto(notification.id, selectedPhoto)}>
+                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                      Split Button
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      {photosOptions.map((photo, idx) => (
+                        <Dropdown.Item key={idx} eventKey={photo}>
+                          {photo}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+
                   </li>
                 ))}
               </ul>

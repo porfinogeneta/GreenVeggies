@@ -24,7 +24,7 @@ const useGET = (method = 'GET', body = null, fetching = true) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                console.log(response);
+                // console.log(response);
                 const result = await response.json()
                 setData(result)
             }catch (error) {
