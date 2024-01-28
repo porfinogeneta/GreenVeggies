@@ -3,6 +3,7 @@ import cors from 'cors'
 import { authenticate } from './authentication/authentication.js';
 import productsRouter from './routes/products.js'
 import moderationRouter from './routes/moderation.js'
+import accessImageRouter from './routes/image_access.js'
 
 
 
@@ -23,6 +24,7 @@ app.get('/authenticate', authenticate, (req, res) => {
 
 app.use('/', productsRouter)
 app.use('/', moderationRouter)
+app.use('/', accessImageRouter)
 
 const port = 8001
 app.listen(port, () => {

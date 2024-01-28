@@ -48,8 +48,8 @@ router.get("/products/farmer/:id", async (req, res) => {
 
 router.post("/products", authenticate, async (req, res, next) => {
   try {
-    const { name, description, category, price, stock_quantity, farmer_id } = req.body;
-    const product = await addProduct(name, description, category, price, stock_quantity, farmer_id);
+    const { name, description, category, price, stock_quantity, farmer_id, image } = req.body;
+    const product = await addProduct(name, description, category, price, stock_quantity, farmer_id, image);
     res.status(201).send(product);
   } catch (error) {
     next(error);

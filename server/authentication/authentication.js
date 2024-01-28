@@ -25,7 +25,7 @@ const pool = await mysql.createPool({
     database: process.env.GOOGLE_DATABASE_NAME,
   }).promise()
 
-async function getUserByUID(uid){
+export async function getUserByUID(uid){
     const [rows] = await pool.query("SELECT * FROM users WHERE UID = ?", [uid])
     return rows[0]
 }
@@ -71,7 +71,6 @@ async function authorize(uid, role,decodedValue, res, next) {
         const id = await addUser(uid);
         // grant access to user pages if the user stuff was requested
         if (role == 'USER'){
-          console.log('elo');
           next()
         }else {
           res.status(401).send("Unauthorized");
