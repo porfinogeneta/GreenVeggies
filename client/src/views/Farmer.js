@@ -86,11 +86,11 @@ function Farmer() {
                 <span key={item.id}>
                   <li className="sub-list">
                     {' '}
-                    𝗡𝗮𝗺𝗲: {item.name}<br></br>
-                    𝗗𝗲𝘀𝗰𝗿𝗶𝗯𝘁𝗶𝗼𝗻: {item.description}<br></br>
-                    𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}<br></br>
-                    𝗤𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}<br></br>
-                    𝗣𝗿𝗶𝗰𝗲: {(item.price * 1).toFixed(2)}$
+                    <p>Name: {item.name}</p><br></br>
+                    <p>Describtion: {item.description}</p><br></br>
+                    <p>Category: {item.category}</p><br></br>
+                    <p>Quantity: {item.stock_quantity}</p><br></br>
+                    <p>Price: {(item.price * 1).toFixed(2)}$</p>
                   </li>
                 </span>
               )): (<>No products</>)}

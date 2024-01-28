@@ -1,3 +1,8 @@
+* {
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+  font-family: 'Lato', sans-serif;
+}
+
 /* Loading message styling */
 p.loading-message {
   font-size: 18px;
@@ -18,26 +23,31 @@ h2 {
   align-items: center;
   margin-left: 5%;
   margin-right: 5%;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust the column width as needed */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 20px;
 }
 
 /* Product list item styling */
 .product-list .sub-list {
   background-color: #dff0d8;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 20px;
   height: 200px;
+}
+
+.product-list .sub-list p {
+  margin-bottom: -12%;
 }
 
 /* Form styling */
 form {
   background-color: #7db1a4;
+  border: none;
   padding-top: 5px;
   padding-bottom: 25px;
   text-align: center;
-  margin: 2% auto 0px auto;
+  margin: 2% auto 5% auto;
 }
 
 form h2 {
@@ -48,22 +58,28 @@ form h2 {
 form label {
   display: block;
   font-weight: bold;
+  border: none;
 }
 
 /* Form input styling */
 form input,
 form textarea {
   background-color:#d1d8d6;
+  border: none;
   font-weight: 555;
   font-size: 100%;
   text-wrap: balance;
   border-radius: 15px;
-  border-width: 1px;
+  border: none;
   width: 60%;
   text-align: center;
   padding: 10px;
   margin: 0 auto 4px auto;
   box-sizing: border-box;
+}
+
+form input, form textarea:focus {
+  outline: none;
 }
 
 /* Form button styling */
@@ -72,7 +88,7 @@ form button {
   background-color: #b2cfc5;
   color: #2a2525;
   padding: 10px 20px;
-  border-width: 1px;
+  border: none;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -80,4 +96,28 @@ form button {
 /* Form button hover effect */
 form button:hover {
   background-color: #8bb6aa; /* Lighter shade for hover effect */
+}
+
+@media (max-width: 875px) {
+  .product-list .sub-list p {
+    margin-bottom: -5%;
+  }
+
+  form h2 {
+    margin: 5%;
+  }
+
+  form {
+    margin-bottom: 15%;
+  }
+
+  form label, input, textarea {
+    width: 100%;
+    margin: 1% auto;
+  }
+  
+  form button {
+    width: 80%;
+  }
+
 }

@@ -10,6 +10,7 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all'); // Initially set to 'all'
   const [filteredData, setFilteredData] = useState(data);
+  const [showInstructions, setShowInstructions] = useState(false);
 
 
   useEffect(() => {
@@ -46,26 +47,31 @@ function Home() {
     setSelectedCategory(category);
   }
 
+  function toggleInstructions() {
+    setShowInstructions(!showInstructions);
+  }
+
   return (
     <Container className="mt-5">
       <h1 className="text-center mb-4">Product List</h1>
-      <h3>Click the 𝗔𝗱𝗱 𝘁𝗼 𝗰𝗮𝗿𝘁 button to add a product to your cart. You will be redirected to your cart then.<br></br>
-      Once you're there you can adjust the amount of product you wish to buy and finalise your order.<br></br>
-        <br></br>To search for a specific product, input the 𝗻𝗮𝗺𝗲 of the product you're looking for in the search bar below.<br></br>
-      Alternatively, input the 𝗽𝗿𝗶𝗰𝗲 (as number) you're interested in - it will show all products of that cost.</h3>
+      <button id="instructionButton" onClick={toggleInstructions}>Click to Show Instructions</button>
+      <div id="instructionsContainer" className={`instructionsContainer ${showInstructions ? 'show' : 'hide'}`}>
+          <h3>Click the 𝗔𝗱𝗱 𝘁𝗼 𝗰𝗮𝗿𝘁 button to add a product to your cart. You will be redirected to your cart then.<br />
+            Once you're there you can adjust the amount of product you wish to buy and finalise your order.<br /><br />
+            To search for a specific product, input the 𝗻𝗮𝗺𝗲 of the product you're looking for in the search bar below.<br />
+            Alternatively, input the 𝗽𝗿𝗶𝗰𝗲 (as a number) you're interested in - it will show all products of that cost.
+          </h3>
+        </div>
       <Row className="justify-content-center">
         <Col xs={12} md={8}>
-          <input
+          <div className='search-filter'>
+            <input
             className="search-bar"
             type="text"
             placeholder="Search products..."
             value={searchQuery}
             onChange={handleSearchChange}
           />
-          <p className="comment-search">
-            No results mean there is no product available with this name/price
-          </p>
-
           <div className="filter-buttons">
             <Button
               className={`filter-button ${
@@ -94,6 +100,7 @@ function Home() {
             >
               Fruits
             </Button>
+            </div>
           </div>
 
           {loading ? (
@@ -113,9 +120,9 @@ function Home() {
                   <Card className="mb-3 card">
                     <Card.Body>
                       <Card.Title>{item.name}</Card.Title>
-                      <Card.Text>𝗖𝗮𝘁𝗲𝗴𝗼𝗿𝘆: {item.category}</Card.Text>
-                      <Card.Text>𝗦𝘁𝗼𝗰𝗸 𝗾𝘂𝗮𝗻𝘁𝗶𝘁𝘆: {item.stock_quantity}</Card.Text>
-                      <Card.Text>𝗣𝗿𝗶𝗰𝗲: ${(item.price * 1).toFixed(2)}</Card.Text>
+                      <Card.Text>Category: {item.category}</Card.Text>
+                      <Card.Text>Stock quantity: {item.stock_quantity}</Card.Text>
+                      <Card.Text>Price: ${(item.price * 1).toFixed(2)}</Card.Text>
                       <ButtonLink to="/shoppingcart" className="button-link-home" product={item}>
                         Add to cart
                       </ButtonLink>

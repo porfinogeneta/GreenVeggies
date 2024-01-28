@@ -41,7 +41,7 @@ function Login() {
     <h1>Login</h1>
     <h3>You are currently not logged in. <br></br> Sign in with your Google account using the button below. <br></br></h3>
     <h4>After successful login please move to another page using the navigation bar.</h4>
-    <button onClick={loginWithGoogle}>Login with Google</button>
+    <button id="google-login" onClick={loginWithGoogle}>Login with Google</button>
   </div>;
 }
 

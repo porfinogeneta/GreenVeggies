@@ -1,3 +1,8 @@
+* {
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+  font-family: 'Lato', sans-serif;
+}
+
 /* Style for the admin list */
 .admin-list {
   list-style: none;
@@ -8,6 +13,7 @@
   gap: 50px;
   row-gap: 40px;
   width: 90%;
+  border: none;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 5%;
@@ -15,13 +21,13 @@
 
 /* Style for each admin item */
 .admin-info {
-  background-color: #f0e0e0;
-  border: 1px solid #000000;
-  padding-bottom: 50px;
-  padding-top: 50px;
+  border: none;
+  background-color: #bde7d2;
+  padding-bottom: 40px;
+  padding-top: 40px;
   padding-left: 15px;
   padding-right: 15px;
-  border-radius: 5px;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -31,24 +37,29 @@
 
 /* Style for the delete button */
 .admin-button {
-  background-color: #6a4844;
+  background-color: #35948e;
   color: #fff;
-  border-width: 1.3px;
   padding: 5px 10px;
   margin-top: 10px;
   width: 100%;
   border: none;
   border-radius: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease-out;
   &:hover {
-    background-color: #54322e;
+    background-color: #24615d;
+    transform: scale(1.05);
   }
 }
 
 .edit-product {
   border-radius: 10px;
-  height: 32%;
-  margin-bottom: 100px;
+  border: none;
+  padding-top: 5%;
+  padding-bottom: 10%;
+  height: 30%;
+  margin-bottom: 50%;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -62,8 +73,8 @@
 
 .edit-product button {
   background-color: #b8dfcd;
-  color: #113c2c;
-  border-width: 1.3px;
+  color: #264b3f;
+  border: none;
   padding: 5px 10px;
   width: 100px;
   border: none;
@@ -82,18 +93,20 @@
   width: 50%;
   font-size: 20px;
   border-radius: 30px;
+  border: none;
   margin-top: 10px;
   align-self: center;
   background-color: #cbf8e3;
 }
 
 .info {
-  background-color: #aea8c4;
+  background-color: #65e0c2;
   margin-top: 1%;
-  margin-bottom: 2%;
+  margin-bottom: 5%;
+  border: none;
   
   &:hover {
-    background-color: #887faa;
+    background-color: #4da790;
   }
 }
 
@@ -105,15 +118,16 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
   width: 90%;
+  border: none;
   margin: 0 auto;
   margin-top: 20px;
-  margin-bottom: 5%;
+  margin-bottom: 15%;
 }
 
 /* Style for each notification card */
 .notification-card {
-  background-color: #e0e0f0;
-  border: 1px solid #000000;
+  background-color: #e0f0e3;
+  border: none;
   padding: 15px;
   border-radius: 5px;
   height: 100%;
@@ -127,7 +141,7 @@
 .notification-button-yes {
   background-color: #a4d0bb;
   color: #113c2c;
-  border-width: 1.3px;
+  border: none;
   padding: 5px 10px;
   width: 100px;
   border: none;
@@ -144,7 +158,7 @@
 .notification-button-no {
   background-color: #e38e8e;
   color: #113c2c;
-  border-width: 1.3px;
+  border: none;
   padding: 5px 10px;
   width: 100px;
   border: none;
@@ -162,4 +176,22 @@
 .notification-message {
   margin-top: 20px;
   font-size: 16px;
+  border: none;
+}
+
+@media (max-width: 875px) {
+  .info {
+    width: 60%;
+    margin-bottom: 25%;
+  }
+
+  .notification-container {
+    margin-top: -20%;
+    margin-bottom: 35%;
+  }
+
+  .notification-card {
+    margin-top: 5%;
+  }
+
 }
