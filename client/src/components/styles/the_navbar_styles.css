@@ -3,8 +3,10 @@
     background-color: #113c2c;
     padding: 20px;
     /* position: fixed; */
-    width: 100%;
+    width: calc(100% - 20px);
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   /* Navigation link styles */
@@ -16,6 +18,30 @@
     font-weight: bold; 
   }
   
+  .logout {
+    color: #fff;
+    font-size: 1.5em;
+    text-decoration: none;
+    padding: 0;
+    width: 100px;
+    margin-right: 5%;
+    font-weight: bold; 
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    margin: 0 auto;
+    /* transform: translate(1350px, -25px); */
+    top: 30%;
+    right: 3%;
+  }
+
+  .logout:hover {
+      text-decoration: underline;
+      color: rgb(225, 225, 183);  
+      background-color: transparent;
+      transform: scale(1);
+  }
+
   .nav-link:hover {
     text-decoration: underline;
     color: rgb(225, 225, 183);
@@ -41,4 +67,11 @@
     .navbar + * {
       padding-top: 50px;
     } 
+
+    .logout {
+      transform: scale(0.8);
+      top: 19%;
+      right: 5px
+    }
+
  }
