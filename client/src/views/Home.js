@@ -120,7 +120,9 @@ function Home() {
                   <Card className="mb-3 card">
                     <Card.Body>
                     {item.image !== null ? (
-                      <img src={`https://storage.googleapis.com/greenveggies_images/${item.image}`} alt="Notification Image" />
+                      <img src={`https://storage.googleapis.com/greenveggies_images/${item.image}`} alt="Notification Image" 
+                      style={{ width: '100%', height: '100%'}}
+                      />
                     ) : (
                       <></>
                     )}

@@ -164,6 +164,14 @@ function Admin() {
                                 item.price.includes(searchQuery)))
     : [];
 
+
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    
+  const handleToggleDropdown = () => {
+    setIsDropdownOpen((prevIsDropdownOpen) => !prevIsDropdownOpen);
+  };
+
     return (
       <div>
         <h1>Admin panel</h1>
@@ -267,19 +275,29 @@ function Admin() {
                     <button className="notification-button-no" onClick={() => handleReject(notification.id)}>
                       Reject
                     </button>
-                    <Dropdown onSelect={(selectedPhoto) => handleAddPhoto(notification.id, selectedPhoto)}>
-                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                      Split Button
+                    
+                    
+                    <Dropdown
+                    onSelect={(selectedPhoto) => handleAddPhoto(notification.id, selectedPhoto)}
+                    show={isDropdownOpen}
+                    onClick={handleToggleDropdown} // Add this line to close the dropdown when clicked again
+                  >
+                    <Dropdown.Toggle
+                      variant="success"
+                      id="dropdown-basic"
+                      className={isDropdownOpen ? 'active' : ''} // Add this line to apply a class when the dropdown is open
+                    >
+                      Images
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                      {photosOptions.map((photo, idx) => (
-                        <Dropdown.Item key={idx} eventKey={photo}>
-                          {photo}
-                        </Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
+        <Dropdown.Menu className={`dropdown-container ${isDropdownOpen ? 'active' : ''}`}>
+          {photosOptions.map((photo, idx) => (
+            <Dropdown.Item key={idx} eventKey={photo} className="dropdown-item">
+              {photo}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
 
                   </li>
                 ))}
