@@ -17,7 +17,6 @@ function TheNavbar() {
         // manage visible fields
         const getCurrentRole = async () => {
             if (uid){
-                console.log(uid);
                 const response = await fetchData('USER', `http://localhost:8001/user/role/${uid}`)
                 setUser(response)
             }else {

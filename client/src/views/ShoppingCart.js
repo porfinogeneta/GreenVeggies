@@ -3,6 +3,7 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import Cookies from 'js-cookie';
 import '../views/styles/shoppingcart_styles.css';
 import useAuthorizeUPDATE from '../hooks/useAuthorizeUPDATE';
+import useAuthorizeDELETE from '../hooks/useAuthorizeDELETE';
 
 const ShoppingCart = () => {
   const [cartItems, setCartItems] = React.useState([]);
@@ -12,6 +13,7 @@ const ShoppingCart = () => {
 
   // hooks
   const {updateData} = useAuthorizeUPDATE();
+  const {deleteData} = useAuthorizeDELETE()
 
   React.useEffect(() => {
     // Retrieve cart items from cookies
@@ -51,10 +53,20 @@ const ShoppingCart = () => {
   };
 
   const handleOrder = async () => {
-    console.log('Ordering products:', cartItems);
+    // console.log('Ordering products:', cartItems);
     try {
-      const quantity_updates = cartItems.map(item => updateData(item.id, {col_name: 'stock_quantity', col_val: item.stock_quantity - item.quantity}, 'USER'))
-      await Promise.all(quantity_updates)
+      // lists for updates products and the ones to delete
+      const toUpdate = []
+      const toDelete = []
+      cartItems.forEach((item) => {
+        if (item.stock_quantity - item.quantity > 0){
+          toUpdate.push(updateData(item.id, {col_name: 'stock_quantity', col_val: item.stock_quantity - item.quantity}, 'USER'))
+        }else {
+          toDelete.push(deleteData('products', item.id))
+        }
+      })
+
+      await Promise.all(toUpdate, toDelete)
       updateCart([]);
       setOrderPlaced(true);
     }catch(err) {
