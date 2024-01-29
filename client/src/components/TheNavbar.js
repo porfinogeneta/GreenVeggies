@@ -11,9 +11,6 @@ function TheNavbar() {
   const [user, setUser] = useState();
   const [isVisible, setIsVisible] = useState(true); // Initially set to true so that the Navbar is visible
 
-  // cookies
-  let uid = Cookies.get('authorizeToken');
-  let accessToken = Cookies.get('accessToken');
 
   useEffect(() => {
     // manage visible fields
